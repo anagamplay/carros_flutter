@@ -1,5 +1,8 @@
 import 'package:carros/pages/carro/carro.dart';
+import 'package:carros/pages/carro/carro_page.dart';
 import 'package:carros/pages/carro/carros_api.dart';
+import 'package:carros/pages/carro/carros_block.dart';
+import 'package:carros/utils/nav.dart';
 import 'package:flutter/material.dart';
 
 class CarrosListView extends StatefulWidget {
@@ -11,39 +14,30 @@ class CarrosListView extends StatefulWidget {
 }
 
 class _CarrosListViewState extends State<CarrosListView> with AutomaticKeepAliveClientMixin<CarrosListView>{
+  List<Carro> carros;
+
+  final _bloc = CarrosBlock();
+
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _bloc.fetch(widget.tipo);
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return _body();
-  }
 
-  _body() {
-    Future<List<Carro>> future = CarrosApi.getCarros(widget.tipo);
+    if(carros == null ) {
+      return Center(child: CircularProgressIndicator(),
+      );
+    }
 
-    return FutureBuilder(
-      future: future,
-      builder: (context, snapshot){
-        if(snapshot.hasError) {
-          return Center(
-            child: Text(
-              'Não foi posivel buscar os carros',
-              style: TextStyle(
-                color: Colors.red,
-                fontSize: 22,
-              ),
-            ),
-          );
-        }
-
-        if(! snapshot.hasData) {
-          return Center(child: CircularProgressIndicator(),);
-        }
-        List<Carro> carros = snapshot.data;
-        return _listView(carros);
-      },
-    );
+    return _listView(carros);
   }
 
   Container _listView(List<Carro> carros) {
@@ -85,9 +79,7 @@ class _CarrosListViewState extends State<CarrosListView> with AutomaticKeepAlive
                     children: <Widget>[
                       TextButton(
                         child: const Text('Detalhes'),
-                        onPressed: () {
-                          /* ... */
-                        },
+                        onPressed: () => _onClickCarro(context, c),
                       ),
                       const SizedBox(width: 8),
                       TextButton(
@@ -106,5 +98,16 @@ class _CarrosListViewState extends State<CarrosListView> with AutomaticKeepAlive
         },
       ),
     );
+  }
+
+  _onClickCarro(context, Carro c) {
+    push(context, CarroPage(c));
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+
+    _bloc.dispose();
   }
 }
