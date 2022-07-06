@@ -1,4 +1,4 @@
-import 'package:carros/pages/api_responde.dart';
+import 'package:carros/pages/api_response.dart';
 import 'package:carros/pages/home_page.dart';
 import 'package:carros/pages/login_api.dart';
 import 'package:carros/pages/usuario.dart';
@@ -19,6 +19,8 @@ class _LoginPageState extends State<LoginPage> {
   final _tLogin = TextEditingController(text: 'ana');
   final _tSenha = TextEditingController(text: '123');
   final _focusSenha = FocusNode();
+
+  bool _showProgress = false;
 
   @override
   initState() {
@@ -42,7 +44,9 @@ class _LoginPageState extends State<LoginPage> {
         padding: EdgeInsets.all(16),
         child: ListView(
           children: <Widget>[
-            AppText('Login', 'Digite o login',
+            AppText(
+              'Login',
+              'Digite o login',
               controller: _tLogin,
               validator: _validateLogin,
               keyboardType: TextInputType.emailAddress,
@@ -50,15 +54,23 @@ class _LoginPageState extends State<LoginPage> {
               nextFocus: _focusSenha,
             ),
             SizedBox(height: 10),
-            AppText('Senha', 'Digite a senha',
+            AppText(
+              'Senha',
+              'Digite a senha',
               password: true,
               controller: _tSenha,
               validator: _validateSenha,
               keyboardType: TextInputType.number,
               focusNode: _focusSenha,
             ),
-            SizedBox(height: 20),
-            AppButton('Login', _onClickLogin)
+            SizedBox(
+                height: 20
+            ),
+            AppButton(
+              'Login',
+              onPressed: _onClickLogin,
+              showProgress: _showProgress,
+            ),
           ],
         ),
       ),
@@ -75,15 +87,24 @@ class _LoginPageState extends State<LoginPage> {
 
     print('Login: $login, Senha: $senha');
 
+    setState((){
+      _showProgress = true;
+    });
+
     ApiResponse response = await LoginApi.login(login, senha);
 
-    if(response.ok) {
+    if (response.ok == true) {
       Usuario user = response.result;
       print('>>> $user');
       push(context, HomePage());
     } else {
       alert(context, response.msg);
     }
+
+    setState((){
+      _showProgress = false;
+    });
+
   }
 
   String? _validateLogin(String? text) {

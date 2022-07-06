@@ -4,7 +4,9 @@ class AppButton extends StatelessWidget {
   String text;
   var onPressed;
 
-  AppButton(this.text, this.onPressed);
+  bool showProgress;
+
+  AppButton(this.text, {this.onPressed, this.showProgress = false});
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +14,18 @@ class AppButton extends StatelessWidget {
       height: 46,
       child: RaisedButton(
         color: Colors.blue,
-        child: Text(
-          text,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-          ),
+        child: showProgress
+          ? Center(child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
         ),
+            )
+          : Text(
+              text,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
         onPressed: onPressed,
       ),
     );

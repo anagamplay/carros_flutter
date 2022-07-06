@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
 
   _body() {
     return Center(
-      child: Text('Ana Clara'),
+      child: Text('Home'),
     );
   }
 }

@@ -3,16 +3,15 @@ class Usuario {
   String nome;
   String email;
   String token;
-
   List<String> roles;
 
-  Usuario.fromJson(Map<String, dynamic> map)
-      : login = map['login'],
-        nome = map['nome'],
-        email = map['email'],
-        token = map['token'],
-        roles = map['roles'] != null
-            ? map['roles'].map<String>((role) => role.toString()).toList()
+  Usuario.fromJson(Map<String, dynamic> json)
+      : login = json['login'],
+        nome = json['nome'],
+        email = json['email'],
+        token = json['token'],
+        roles = json['roles'] != null
+            ? json['roles'].map<String>((role) => role.toString()).toList()
             : null;
 
   @override
