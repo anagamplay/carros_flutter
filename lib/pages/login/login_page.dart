@@ -1,13 +1,13 @@
 import 'package:carros/pages/api_response.dart';
-import 'package:carros/pages/home_page.dart';
-import 'package:carros/pages/login_api.dart';
-import 'package:carros/pages/usuario.dart';
+import 'package:carros/pages/carro/home_page.dart';
+import 'package:carros/pages/login/login_api.dart';
+import 'package:carros/pages/login/usuario.dart';
 import 'package:carros/utils/alert.dart';
 import 'package:carros/utils/nav.dart';
 import 'package:carros/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/app_text.dart';
+import '../../widgets/app_text.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _tLogin = TextEditingController(text: 'ana');
+  final _tLogin = TextEditingController(text: 'admin');
   final _tSenha = TextEditingController(text: '123');
   final _focusSenha = FocusNode();
 
@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
     if (response.ok == true) {
       Usuario user = response.result;
       print('>>> $user');
-      push(context, HomePage());
+      push(context, HomePage(), replace: true);
     } else {
       alert(context, response.msg);
     }
