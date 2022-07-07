@@ -1,22 +1,25 @@
 import 'package:carros/pages/carro/carro.dart';
 import 'package:carros/pages/carro/carro_page.dart';
 import 'package:carros/pages/carro/carros_api.dart';
-import 'package:carros/pages/carro/carros_block.dart';
+import 'package:carros/pages/carro/carros_bloc.dart';
 import 'package:carros/utils/nav.dart';
+import 'package:carros/widgets/text_error.dart';
 import 'package:flutter/material.dart';
 
 class CarrosListView extends StatefulWidget {
   String tipo;
+
   CarrosListView(this.tipo);
 
   @override
   State<CarrosListView> createState() => _CarrosListViewState();
 }
 
-class _CarrosListViewState extends State<CarrosListView> with AutomaticKeepAliveClientMixin<CarrosListView>{
+class _CarrosListViewState extends State<CarrosListView>
+    with AutomaticKeepAliveClientMixin<CarrosListView> {
   List<Carro> carros;
 
-  final _bloc = CarrosBlock();
+  final _bloc = CarrosBloc();
 
   @override
   bool get wantKeepAlive => true;
@@ -32,15 +35,27 @@ class _CarrosListViewState extends State<CarrosListView> with AutomaticKeepAlive
   Widget build(BuildContext context) {
     super.build(context);
 
-    if(carros == null ) {
-      return Center(child: CircularProgressIndicator(),
-      );
-    }
+    return StreamBuilder(
+      stream: _bloc.stream,
+      builder: (context, snapshot,) {
+        if (snapshot.hasError) {
+          return TextError('[ERRO]Não foi possível buscar os carros');
+        }
 
-    return _listView(carros);
+        if (!snapshot.hasData) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        List<Carro> carros = snapshot.data;
+
+        return _listView(carros);
+      }
+    );
   }
 
-  Container _listView(List<Carro> carros) {
+  _listView(List<Carro> carros) {
     return Container(
       padding: EdgeInsets.all(10),
       child: ListView.builder(

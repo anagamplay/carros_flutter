@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-    _initTabs();
+     _initTabs();
   }
 
   _initTabs() async {
@@ -31,10 +31,7 @@ class _HomePageState extends State<HomePage>
     });
 
     _tabController?.addListener(() {
-      Prefs.setInt(
-        'tabIdx',
-        _tabController.index,
-      );
+      Prefs.setInt('tabIdx', _tabController.index,);
     });
   }
 

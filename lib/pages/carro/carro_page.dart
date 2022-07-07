@@ -5,7 +5,6 @@ class CarroPage extends StatelessWidget {
   Carro carro;
 
   CarroPage(this.carro);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
