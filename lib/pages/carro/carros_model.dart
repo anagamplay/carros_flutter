@@ -6,7 +6,7 @@ part 'carros_model.g.dart';
 
 class CarrosModel = CarrosModelBase with _$CarrosModel;
 
-abstract class ModelBase with Store {
+abstract class CarrosModelBase with Store {
   @observable
   List<Carro>? carros;
 
@@ -16,7 +16,7 @@ abstract class ModelBase with Store {
   @action
   fetch(String tipo) async{
     try {
-
+      error = null;
       carros = await CarrosApi.getCarros(tipo);
 
     } catch(e) {
