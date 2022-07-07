@@ -3,7 +3,7 @@
 Text text (
   String s, {
     double fontSize = 16,
-    color = Colors.red,
+    color = Colors.black,
     bold = false,
  }) {
   return Text(

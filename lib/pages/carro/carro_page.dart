@@ -27,7 +27,7 @@ class _CarroPageState extends State<CarroPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.carro.nome),
+        title: Text(widget.carro.nome,),
         actions: <Widget>[
           IconButton(
             onPressed: _onClickMapa,
@@ -67,7 +67,7 @@ class _CarroPageState extends State<CarroPage> {
       padding: EdgeInsets.all(16),
       child: ListView(
         children: <Widget>[
-          Image.network(widget.carro.urlFoto),
+          Image.network(widget.carro.urlFoto ?? "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png"),
           _bloco1(),
           Divider(),
           _bloco2(),
@@ -83,10 +83,13 @@ class _CarroPageState extends State<CarroPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                text(
-                  widget.carro.nome,
-                  fontSize: 20,
-                  bold: true,
+                Container(
+                  width: 280,
+                  child: text(
+                    widget.carro.nome,
+                    fontSize: 20,
+                    bold: true,
+                  ),
                 ),
                 text(
                   widget.carro.tipo,
@@ -123,7 +126,7 @@ class _CarroPageState extends State<CarroPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         SizedBox(height: 20,),
-        text(widget.carro.descricao, fontSize: 16,),
+        text(widget.carro.descricao ?? '', fontSize: 16,),
         SizedBox(height: 20,),
         StreamBuilder<String>(
           stream: _loripsumApiBloc.stream,

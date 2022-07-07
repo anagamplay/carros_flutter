@@ -9,7 +9,7 @@ class CarrosListView extends StatelessWidget {
   CarrosListView(this.carros);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
     return Container(
       padding: EdgeInsets.all(16),
       child: ListView.builder(
@@ -28,17 +28,17 @@ class CarrosListView extends StatelessWidget {
                     child: Image.network(
                       c.urlFoto ??
                           "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png",
-                      width: 150,
+                      width: 250,
                     ),
                   ),
                   Text(
                     c.nome ?? 'Erro',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    'Descrição...',
+                    c.descricao ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 16),

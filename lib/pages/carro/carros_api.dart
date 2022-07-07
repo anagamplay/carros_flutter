@@ -26,7 +26,7 @@ class CarrosApi {
 
     String json = response.body;
 
-    List list = convert.json.decode(json);
+    List list = await convert.json.decode(json);
 
     return list.map<Carro>((map) => Carro.fromJson(map)).toList();
   }
