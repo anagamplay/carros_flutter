@@ -104,15 +104,14 @@ class _CarroPageState extends State<CarroPage> {
                   icon: Icon(
                     Icons.favorite,
                     color: Colors.red,
-                    size: 40,
+                    size: 35,
                   ),
                 ),
                 IconButton(
                   onPressed: _onClickShare,
                   icon: Icon(
                     Icons.share,
-                    color: Colors.red,
-                    size: 40,
+                    size: 35,
                   ),
                 ),
               ],

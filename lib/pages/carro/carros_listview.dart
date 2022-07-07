@@ -29,6 +29,7 @@ class CarrosListView extends StatelessWidget {
                       c.urlFoto ??
                           "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png",
                       width: 250,
+                      height: 120,
                     ),
                   ),
                   Text(
