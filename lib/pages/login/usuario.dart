@@ -4,9 +4,9 @@ import 'package:carros/utils/prefs.dart';
 
 class Usuario {
   String? login;
-  String? nome;
-  String? email;
-  String? urlFoto;
+  var nome;
+  var email;
+  var urlFoto;
   String? token;
   List<String>? roles;
 

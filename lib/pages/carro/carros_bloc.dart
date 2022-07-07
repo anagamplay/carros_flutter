@@ -9,6 +9,8 @@ class CarrosBloc extends SimpleBloc<List<Carro>> {
       List<Carro> carros = await CarrosApi.getCarros(tipo);
 
       add(carros);
+
+      return carros;
     } catch(e) {
       addError(e);
     }

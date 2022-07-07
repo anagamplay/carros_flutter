@@ -4,11 +4,9 @@ import 'package:carros/utils/nav.dart';
 import 'package:flutter/material.dart';
 
 class DrawerList extends StatelessWidget {
-  const DrawerList({Key? key}) : super(key: key);
-
   UserAccountsDrawerHeader _header(Usuario user) {
 
-    return const UserAccountsDrawerHeader(
+    return UserAccountsDrawerHeader(
       accountName: Text(user.nome),
       accountEmail: Text(user.email),
       currentAccountPicture: CircleAvatar(
@@ -25,10 +23,10 @@ class DrawerList extends StatelessWidget {
       child: Drawer(
         child: ListView(
           children: <Widget>[
-            FutureBuilder<Usuario>(
+            FutureBuilder<Usuario?>(
               future: future,
               builder: (context, snapshot) {
-                Usuario user = snapshot.data;
+                Usuario user = snapshot.data as Usuario;
 
                 return user != null ? _header(user) : Container();
               },

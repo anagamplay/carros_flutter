@@ -1,12 +1,12 @@
 class Carro implements Exception{
-  int? id;
-  String? nome;
-  String? tipo;
-  String? descricao;
-  String? urlFoto;
-  String? urlVideo;
-  String? latitude;
-  String? longitude;
+  var id;
+  var nome;
+  var tipo;
+  var descricao;
+  var urlFoto;
+  var urlVideo;
+  var latitude;
+  var longitude;
 
   Carro(
       {this.id,
