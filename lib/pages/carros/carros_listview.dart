@@ -9,7 +9,7 @@ class CarrosListView extends StatelessWidget {
   CarrosListView(this.carros);
 
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16),
       child: ListView.builder(
@@ -17,7 +17,7 @@ class CarrosListView extends StatelessWidget {
         itemBuilder: (context, index) {
           Carro c = carros![index];
 
-          return Card(
+          return Card (
             color: Colors.grey[100],
             child: Container(
               padding: EdgeInsets.all(10),
@@ -33,7 +33,7 @@ class CarrosListView extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    c.nome ?? 'Erro',
+                    c.nome ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),

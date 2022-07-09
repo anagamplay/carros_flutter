@@ -42,7 +42,7 @@ class CarroDAO {
     final list = await dbClient?.rawQuery('select * from carro where id = ?', [id]);
 
     if (list?.length != 0) {
-      return Carro.fromJson(list.first);
+      return Carro.fromJson(list!.first);
     }
 
     return null;
