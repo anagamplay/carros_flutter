@@ -26,17 +26,23 @@ class CarrosListView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Center(
-                    child: CachedNetworkImage(
-                      imageUrl: c.urlFoto ?? "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png",
-                      width: 250,
-                      height: 120,
+                    child: GestureDetector(
+                      child: CachedNetworkImage(
+                        imageUrl: c.urlFoto ?? "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png",
+                        width: 250,
+                        height: 120,
+                      ),
+                      onTap: (){_onClickCarro(context, c);},
                     ),
                   ),
-                  Text(
-                    c.nome ?? '',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    child: Text(
+                      c.nome ?? '',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    onTap: (){_onClickCarro(context, c);},
                   ),
                   Text(
                     c.descricao ?? '',
@@ -63,6 +69,7 @@ class CarrosListView extends StatelessWidget {
                   ),
                 ],
               ),
+
             ),
           );
         },
