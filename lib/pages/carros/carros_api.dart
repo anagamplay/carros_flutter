@@ -23,6 +23,8 @@ class CarrosApi {
 
     var url = Uri.parse('https://carros-springboot.herokuapp.com/api/v2/carros/tipo/$tipo');
 
+    print("GET > $url");
+
     var response = await http.get(url, headers: headers);
 
     String json = response.body;
@@ -30,6 +32,11 @@ class CarrosApi {
     List list = convert.json.decode(json);
 
     List<Carro> carros = list.map<Carro>((map) => Carro.fromMap(map)).toList();
+
+    final dao = CarroDAO();
+
+    //Salvar todos os carros
+    carros.forEach(dao.save);
 
     return carros;
   }

@@ -17,17 +17,11 @@ class CarrosBloc extends SimpleBloc<List<Carro>> {
 
       List<Carro> carros = await CarrosApi.getCarros(tipo);
 
-      if(carros.isNotEmpty) {
-        final dao = CarroDAO();
-
-        //Salvar todos os carros
-        carros.forEach(dao.save);
-      }
-
       add(carros);
 
       return carros;
     } catch(e) {
+      print(e);
       addError(e);
     }
   }

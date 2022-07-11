@@ -35,10 +35,7 @@ abstract class BaseDAO<T extends Entity> {
   Future<T?> findById(int id) async {
     final list = await query('select * from $tableName where id = ?', [id]);
 
-      return list!.first != 0 ? list.first : null;
-
-
-    return null;
+      return list!.isNotEmpty ? list.first : null;
   }
 
   Future<bool> exists(int id) async {
