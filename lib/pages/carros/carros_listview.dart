@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carros/pages/carros/carro.dart';
 import 'package:carros/pages/carros/carro_page.dart';
 import 'package:carros/utils/nav.dart';
@@ -25,9 +26,8 @@ class CarrosListView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Center(
-                    child: Image.network(
-                      c.urlFoto ??
-                          "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png",
+                    child: CachedNetworkImage(
+                      imageUrl: c.urlFoto ?? "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png",
                       width: 250,
                       height: 120,
                     ),

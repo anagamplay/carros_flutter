@@ -1,10 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carros/pages/carros/carro.dart';
 import 'package:carros/pages/carros/loripsum_api.dart';
 import 'package:carros/widgets/text.dart';
 import 'package:flutter/material.dart';
 
 class CarroPage extends StatefulWidget {
-
   Carro carro;
 
   CarroPage(this.carro);
@@ -27,7 +27,9 @@ class _CarroPageState extends State<CarroPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.carro.nome,),
+        title: Text(
+          widget.carro.nome,
+        ),
         actions: <Widget>[
           IconButton(
             onPressed: _onClickMapa,
@@ -67,7 +69,9 @@ class _CarroPageState extends State<CarroPage> {
       padding: EdgeInsets.all(16),
       child: ListView(
         children: <Widget>[
-          Image.network(widget.carro.urlFoto ?? "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png"),
+          CachedNetworkImage(
+            imageUrl: widget.carro.urlFoto ?? "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png",
+          ),
           _bloco1(),
           Divider(),
           _bloco2(),
@@ -78,60 +82,69 @@ class _CarroPageState extends State<CarroPage> {
 
   Row _bloco1() {
     return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  width: 280,
-                  child: text(
-                    widget.carro.nome,
-                    fontSize: 20,
-                    bold: true,
-                  ),
-                ),
-                text(
-                  widget.carro.tipo,
-                  fontSize: 16,
-                ),
-              ],
+            Container(
+              width: 280,
+              child: text(
+                widget.carro.nome,
+                fontSize: 20,
+                bold: true,
+              ),
             ),
-            Row(
-              children: <Widget>[
-                IconButton(
-                  onPressed: _onClickFavorito,
-                  icon: Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                    size: 35,
-                  ),
-                ),
-                IconButton(
-                  onPressed: _onClickShare,
-                  icon: Icon(
-                    Icons.share,
-                    size: 35,
-                  ),
-                ),
-              ],
+            text(
+              widget.carro.tipo,
+              fontSize: 16,
             ),
           ],
-        );
+        ),
+        Row(
+          children: <Widget>[
+            IconButton(
+              onPressed: _onClickFavorito,
+              icon: Icon(
+                Icons.favorite,
+                color: Colors.red,
+                size: 35,
+              ),
+            ),
+            IconButton(
+              onPressed: _onClickShare,
+              icon: Icon(
+                Icons.share,
+                size: 35,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 
   _bloco2() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(height: 20,),
-        text(widget.carro.descricao ?? '', fontSize: 16,),
-        SizedBox(height: 20,),
+        SizedBox(
+          height: 20,
+        ),
+        text(
+          widget.carro.descricao ?? '',
+          fontSize: 16,
+        ),
+        SizedBox(
+          height: 20,
+        ),
         StreamBuilder<String>(
           stream: _loripsumApiBloc.stream,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if(!snapshot.hasData) {
-              return Center(child: CircularProgressIndicator(),);
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
             }
             return text(snapshot.data, fontSize: 16);
           },
