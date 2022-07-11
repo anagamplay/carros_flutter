@@ -26,7 +26,7 @@ class DatabaseHelper {
     String path = join(databasesPath, 'carros.db');
     print("db $path");
 
-    var db = await openDatabase(path, version: 2, onCreate: _onCreate, onUpgrade: _onUpgrade);
+    var db = await openDatabase(path, version: 1, onCreate: _onCreate, onUpgrade: _onUpgrade);
     return db;
   }
 
@@ -34,11 +34,12 @@ class DatabaseHelper {
 
     String s = await rootBundle.loadString('assets/sql/create.sql');
 
-    List<String> sqls = s.split(';');
+    List<String> sqls = s.split(";");
 
     for(String sql in sqls){
       if(sql.trim().isNotEmpty) {
-        await db.execute(s);
+        print('sql: $sql');
+        await db.execute(sql);
       }
     }
   }

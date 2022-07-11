@@ -1,15 +1,15 @@
 import 'package:carros/drawer_list.dart';
 import 'package:carros/pages/carros/carros_api.dart';
-import 'package:carros/pages/carros/carros_listview.dart';
 import 'package:carros/pages/carros/carros_page.dart';
 import 'package:carros/utils/prefs.dart';
 import 'package:flutter/material.dart';
+import 'package:carros/pages/favoritos/favoritos_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage>
@@ -23,18 +23,13 @@ class _HomePageState extends State<HomePage>
   }
 
   _initTabs() async {
-    int tabIdx = await Prefs.getInt('tabIdx');
 
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
 
-    setState(() {
-      _tabController?.index = tabIdx;
-    });
+    _tabController?.index = await Prefs.getInt('tabIdx');
+
     _tabController?.addListener(() {
-      Prefs.setInt(
-        'tabIdx',
-        _tabController?.index ?? 1,
-      );
+      Prefs.setInt('tabIdx', _tabController?.index ?? 1,);
     });
   }
 
@@ -45,15 +40,22 @@ class _HomePageState extends State<HomePage>
         title: Text('Carros'),
         bottom: TabBar(
           controller: _tabController,
-          tabs: [
+          tabs: const [
             Tab(
               text: 'Clássicos',
+              icon: Icon(Icons.directions_car),
             ),
             Tab(
               text: 'Esportivos',
+              icon: Icon(Icons.directions_car),
             ),
             Tab(
               text: 'Luxo',
+              icon: Icon(Icons.directions_car),
+            ),
+            Tab(
+              text: 'Favoritos',
+              icon: Icon(Icons.favorite),
             ),
           ],
         ),
@@ -64,6 +66,7 @@ class _HomePageState extends State<HomePage>
           CarrosPage(TipoCarro.classicos),
           CarrosPage(TipoCarro.esportivos),
           CarrosPage(TipoCarro.luxo),
+          FavoritosPage(),
         ],
       ),
       drawer: DrawerList(),

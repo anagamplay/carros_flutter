@@ -4,6 +4,8 @@ import 'package:carros/utils/nav.dart';
 import 'package:flutter/material.dart';
 
 class DrawerList extends StatelessWidget {
+  const DrawerList({Key? key}) : super(key: key);
+
   UserAccountsDrawerHeader _header(Usuario user) {
 
     return UserAccountsDrawerHeader(

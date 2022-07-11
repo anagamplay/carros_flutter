@@ -1,20 +1,21 @@
 import 'package:carros/pages/carros/home_page.dart';
-import 'package:carros/pages/favoritos/db_helper.dart';
 import 'package:carros/pages/login/login_page.dart';
 import 'package:carros/pages/login/usuario.dart';
 import 'package:carros/utils/nav.dart';
+import 'package:carros/utils/sql/db_helper.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
 
   @override
-  State<SplashPage> createState() => _SplashPageState();
+  _SplashPageState createState() => _SplashPageState();
 }
 
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState(){
+
     // Inicializar o banco de dados
     Future futureA = DatabaseHelper.getInstance().db;
 
@@ -25,6 +26,8 @@ class _SplashPageState extends State<SplashPage> {
 
     Future.wait([futureA, futureB, futureC]).then((List values){
       Usuario user = values[2];
+      print(user);
+
       if(user != null) {
         push(context, HomePage(), replace: true);
       } else {
