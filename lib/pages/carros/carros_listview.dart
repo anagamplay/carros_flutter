@@ -35,14 +35,11 @@ class CarrosListView extends StatelessWidget {
                       onTap: (){_onClickCarro(context, c);},
                     ),
                   ),
-                  GestureDetector(
-                    child: Text(
-                      c.nome ?? '',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    onTap: (){_onClickCarro(context, c);},
+                  Text(
+                    c.nome ?? '',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     c.descricao ?? '',
