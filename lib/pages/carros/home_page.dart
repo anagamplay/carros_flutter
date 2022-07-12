@@ -1,9 +1,12 @@
 import 'package:carros/drawer_list.dart';
+import 'package:carros/pages/carros/carro_form_page.dart';
 import 'package:carros/pages/carros/carros_api.dart';
 import 'package:carros/pages/carros/carros_page.dart';
 import 'package:carros/utils/prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:carros/pages/favoritos/favoritos_page.dart';
+
+import '../../utils/nav.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,7 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin<HomePage> {
-  TabController? _tabController;
+  late TabController _tabController;
 
   @override
   void initState() {
@@ -24,13 +27,13 @@ class _HomePageState extends State<HomePage>
 
   _initTabs() async {
 
-    _tabController = TabController(length: 4, vsync: this);
+      _tabController = TabController(length: 4, vsync: this);
 
-    _tabController?.index = await Prefs.getInt('tabIdx');
+      _tabController.index = await Prefs.getInt('tabIdx');
 
-    _tabController?.addListener(() {
-      Prefs.setInt('tabIdx', _tabController?.index ?? 1,);
-    });
+      _tabController.addListener(() {
+        Prefs.setInt('tabIdx', _tabController.index,);
+      });
   }
 
   @override
@@ -70,6 +73,14 @@ class _HomePageState extends State<HomePage>
         ],
       ),
       drawer: DrawerList(),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: _onClickAdicionarCarro,
+      ),
     );
+  }
+
+  void _onClickAdicionarCarro() {
+    push(context, CarroFormPage());
   }
 }
