@@ -17,9 +17,13 @@ class LoginApi {
       };
 
       String s = json.encode(params);
+      print(">> $s");
+
 
       var url = Uri.parse('https://carros-springboot.herokuapp.com/api/v2/login');
+
       var response = await http.post(url, body: s, headers: headers,);
+
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
 
@@ -30,14 +34,14 @@ class LoginApi {
 
         user.save();
 
-        return ApiResponse.ok(result: user);
+        return ApiResponse.ok(user);
       }
 
-      return ApiResponse.error(msg:mapResponse['error']);
+      return ApiResponse.error(mapResponse['error']);
     } catch(error, excepition) {
         print('Erro no login $error > $excepition');
         
-        return ApiResponse.error(msg:'Não foi possível fazer o login');
+        return ApiResponse.error('Não foi possível fazer o login');
     }
   }
 }

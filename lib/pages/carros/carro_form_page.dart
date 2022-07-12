@@ -1,5 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carros/pages/api_response.dart';
 import 'package:carros/pages/carros/carro.dart';
+import 'package:carros/pages/carros/carros_api.dart';
+import 'package:carros/utils/alert.dart';
 import 'package:carros/widgets/app_button.dart';
 import 'package:carros/widgets/app_text.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +45,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
     final carro = this.carro;
     if (carro != null) {
       tNome.text = carro.nome;
-      tDesc.text = carro.descricao;
+      tDesc.text = carro.descricao ?? '';
       _radioIndex = getTipoInt(carro);
     }
   }
@@ -109,7 +112,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
   _headerFoto() {
     return carro != null
     ? CachedNetworkImage(
-      imageUrl: carro?.urlFoto,
+      imageUrl: carro?.urlFoto ?? "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png",
     )
     : Image.asset(
       "assets/images/camera.png",
@@ -199,7 +202,13 @@ class _CarroFormPageState extends State<CarroFormPage> {
 
     print("Salvar o carro $c");
 
-    await Future.delayed(Duration(seconds: 3));
+    ApiResponse<bool> response = await CarrosApi.save(c);
+
+    if(response.ok == true) {
+      alert(context, "Carro salvo com sucesso!", callback: (){Navigator.pop(context);},);
+    } else {
+      alert(context, response.msg,);
+    }
 
     setState(() {
       _showProgress = false;
