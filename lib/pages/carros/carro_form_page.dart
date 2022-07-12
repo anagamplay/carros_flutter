@@ -95,7 +95,6 @@ class _CarroFormPageState extends State<CarroFormPage> {
             "",
             controller: tDesc,
             keyboardType: TextInputType.text,
-            validator: _validateNome as String? Function(String?),
           ),
           AppButton(
             "Salvar",
