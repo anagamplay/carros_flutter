@@ -174,7 +174,7 @@ class _CarroPageState extends State<CarroPage> {
     switch (value) {
       case 'Editar':
         print('Editar ');
-        push(context, CarroFormPage());
+        push(context, CarroFormPage(carro: carro,));
         break;
       case 'Deletar':
         print('Deletar');

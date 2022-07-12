@@ -39,10 +39,11 @@ class _CarroFormPageState extends State<CarroFormPage> {
     super.initState();
 
     // Copia os dados do carro para o form
+    final carro = this.carro;
     if (carro != null) {
-      tNome.text = carro?.nome;
-      tDesc.text = carro?.descricao;
-      _radioIndex = getTipoInt(carro!);
+      tNome.text = carro.nome;
+      tDesc.text = carro.descricao;
+      _radioIndex = getTipoInt(carro);
     }
   }
 
@@ -50,7 +51,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(carro != null ? carro?.nome : 'Novo Carro'),
+        title: Text(carro != null ? carro!.nome : 'Novo Carro'),
       ),
       body: Container(
         padding: EdgeInsets.all(16),

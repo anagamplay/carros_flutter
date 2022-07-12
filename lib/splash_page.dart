@@ -25,7 +25,7 @@ class _SplashPageState extends State<SplashPage> {
     Future<Usuario?> futureC = Usuario.get();
 
     Future.wait([futureA, futureB, futureC]).then((List values){
-      Usuario user = values[2];
+      Usuario? user = values[2];
       print(user);
 
       if(user != null) {
