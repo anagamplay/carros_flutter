@@ -9,7 +9,7 @@ alert(context, msg, {Function? callback}) {
         onWillPop: () async => false, // Se apertar no botao de voltar nao fecha
         child: AlertDialog(
           title: const Text('Carros'),
-          content: Text(msg ?? 'ERRO!'),
+          content: Text(msg),
           actions: <Widget>[
             TextButton(
               child: const Text('Ok'),
