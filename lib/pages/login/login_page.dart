@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:carros/pages/api_response.dart';
 import 'package:carros/pages/carros/home_page.dart';
 import 'package:carros/pages/login/login_bloc.dart';
