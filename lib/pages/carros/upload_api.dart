@@ -3,6 +3,7 @@ import 'dart:convert' as convert;
 import 'dart:io';
 
 import 'package:carros/pages/api_response.dart';
+import 'package:carros/pages/login/usuario.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
 
@@ -17,7 +18,12 @@ class UploadApi {
 
       String fileName = path.basename(file.path);
 
-      var headers = {"Content-Type": "application/json"};
+      Usuario? user = await Usuario.get();
+
+      Map<String, String> headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer ${user?.token}"
+      };
 
       var params = {
         "fileName": fileName,
