@@ -201,7 +201,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
 
     if(image != null) {
       setState(() {
-        this._file = File(image.path);
+        _file = File(image.path);
       });
     }
   }
@@ -225,7 +225,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
 
     print("Salvar o carro $c");
 
-    ApiResponse<bool> response = await CarrosApi.save(c);
+    ApiResponse<bool> response = await CarrosApi.save(c, _file);
 
     if(response.ok == true) {
       alert(context, "Carro salvo com sucesso!", callback: (){Navigator.pop(context);},);
