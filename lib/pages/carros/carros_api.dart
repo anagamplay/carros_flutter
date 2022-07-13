@@ -43,31 +43,41 @@ class CarrosApi {
       "Authorization": "Bearer ${user?.token}"
     };
 
-
   var url = Uri.parse('https://carros-springboot.herokuapp.com/api/v2/carros');
+
+  if(c.id != null) {
+    url = Uri.parse('https://carros-springboot.herokuapp.com/api/v2/carros/${c.id}');
+  }
+
 
   print('POST > $url');
 
-    String json = c.toJson();
+  String json = c.toJson();
 
-    print("   JSON > $json");
+  print("   JSON > $json");
 
-    var response = await http.post(url, body: json, headers: headers);
+  var response = await (
+  c.id == null ? http.post(url, body: json, headers: headers) : http.put(url, body: json, headers: headers)
+  );
 
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+  print('Response status: ${response.statusCode}');
+  print('Response body: ${response.body}');
 
-    if(response.statusCode == 201) {
-      Map<String, dynamic> mapResponse = convert.json.decode(response.body);
+  if(response.statusCode == 200 || response.statusCode == 201) {
+    Map<String, dynamic> mapResponse = convert.json.decode(response.body);
 
-      Carro carro = Carro.fromMap(mapResponse);
+    Carro carro = Carro.fromMap(mapResponse);
 
-      print("Novo carro: ${carro.id}");
+    print("Novo carro: ${carro.id}");
 
-      return ApiResponse.ok(true);
-    }
+    return ApiResponse.ok(true);
+  }
 
-    Map mapResponse = convert.json.decode(response.body);
-    return ApiResponse.error(mapResponse["error"]);
+  if(response.body == null || response.body.isEmpty){
+    return ApiResponse.error('[ERRO] Não foi possível salvar o carro');
+  }
+
+  Map mapResponse = convert.json.decode(response.body);
+  return ApiResponse.error(mapResponse["error"]);
   }
 }
