@@ -6,6 +6,7 @@ import 'package:carros/utils/alert.dart';
 import 'package:carros/utils/nav.dart';
 import 'package:carros/widgets/app_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 import '../../widgets/app_text.dart';
 
@@ -77,6 +78,13 @@ class _LoginPageState extends State<LoginPage> {
                 );
               }
             ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child: SignInButton(
+                Buttons.Google,
+                onPressed: _onClickGoolge,
+              ),
+            )
           ],
         ),
       ),
@@ -126,5 +134,9 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
 
     _bloc.dispose();
+  }
+
+  _onClickGoolge() {
+    print('google');
   }
 }
