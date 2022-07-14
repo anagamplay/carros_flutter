@@ -81,7 +81,8 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               margin: EdgeInsets.only(top: 20),
               child: SignInButton(
-                Buttons.Google,
+                Buttons.GoogleDark,
+                padding: EdgeInsets.all(7),
                 onPressed: _onClickGoolge,
               ),
             )
