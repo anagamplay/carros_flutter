@@ -64,7 +64,7 @@ class CarrosListView extends StatelessWidget {
                           TextButton(
                             child: const Text('Share'),
                             onPressed: () {
-                              /* ... */
+                              _onClickShare(context, c);
                             },
                           ),
                           const SizedBox(width: 8),
@@ -93,12 +93,26 @@ class CarrosListView extends StatelessWidget {
         children: <Widget>[
           ListTile(
             title: Text('Detalhes'),
+            leading: Icon(Icons.directions_car),
+            onTap: () {
+              Navigator.pop(context);
+              _onClickCarro(context, c);
+            },
           ),
           ListTile(
             title: Text('Share'),
+            leading: Icon(Icons.share,),
+            onTap: () {
+              Navigator.pop(context);
+              _onClickShare(context, c);
+            },
           )
         ],
       );
     });
+  }
+
+  void _onClickShare(BuildContext context, Carro c) {
+    print('Share');
   }
 }
