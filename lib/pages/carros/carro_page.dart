@@ -4,6 +4,7 @@ import 'package:carros/pages/carros/carro.dart';
 import 'package:carros/pages/carros/carro_form_page.dart';
 import 'package:carros/pages/carros/carros_api.dart';
 import 'package:carros/pages/carros/loripsum_api.dart';
+import 'package:carros/pages/carros/video_page.dart';
 import 'package:carros/pages/favoritos/favorito_service.dart';
 import 'package:carros/utils/alert.dart';
 import 'package:carros/utils/nav.dart';
@@ -171,7 +172,11 @@ class _CarroPageState extends State<CarroPage> {
 
   void _onClickMapa() {}
 
-  void _onClickVideo() {}
+  void _onClickVideo() {
+    if(carro.urlVideo != null && carro.urlVideo.isNotEmpty) {
+      push(context, VideoPage(carro));
+    }
+  }
 
   _onCLockPopupMenu(String value) {
     switch (value) {
