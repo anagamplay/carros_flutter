@@ -3,6 +3,7 @@ import 'package:carros/pages/carros/carro.dart';
 import 'package:carros/pages/carros/carro_page.dart';
 import 'package:carros/utils/nav.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 class CarrosListView extends StatelessWidget {
   List<Carro>? carros;
@@ -87,10 +88,21 @@ class CarrosListView extends StatelessWidget {
   }
 
   void _onLongClickCarro(BuildContext context, Carro c) {
-    showDialog(context: context, builder: (context){
-      return SimpleDialog(
-        title: Text(c.nome),
+    showModalBottomSheet(context: context, builder: (context){
+    // Ou showDialog() {}
+      return Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              c.nome,
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+          ),
           ListTile(
             title: Text('Detalhes'),
             leading: Icon(Icons.directions_car),
@@ -113,6 +125,8 @@ class CarrosListView extends StatelessWidget {
   }
 
   void _onClickShare(BuildContext context, Carro c) {
-    print('Share');
+    print('Share ${c.nome}');
+
+    Share.share(c.urlFoto ?? "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png");
   }
 }
