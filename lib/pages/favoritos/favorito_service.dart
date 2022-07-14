@@ -25,7 +25,6 @@ class FavoritoService {
          dao.save(f);
 
          Provider.of<FavoritosBloc>(context, listen: false).fetch();
-
          return true;
       }
    }
@@ -38,8 +37,6 @@ class FavoritoService {
       final dao = FavoritoDAO();
 
       bool exists = await dao.exists(c.id);
-
       return exists;
    }
-
 }

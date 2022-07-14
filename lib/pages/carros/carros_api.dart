@@ -83,7 +83,7 @@ class CarrosApi {
     }
   }
 
-  static delete(Carro c) async {
+  static Future<ApiResponse<bool>> delete(Carro c) async {
     try {
 
       var url = Uri.parse('https://carros-springboot.herokuapp.com/api/v2/carros/${c.id}');

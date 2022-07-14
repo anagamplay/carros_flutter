@@ -17,9 +17,9 @@ class Favorito extends Entity {
 
   @override
   Map<String, dynamic> toMap() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['nome'] = this.nome;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['nome'] = nome;
     return data;
   }
 }
