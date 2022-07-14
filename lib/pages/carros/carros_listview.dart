@@ -18,55 +18,63 @@ class CarrosListView extends StatelessWidget {
         itemBuilder: (context, index) {
           Carro c = carros![index];
 
-          return Card (
-            color: Colors.grey[100],
-            child: Container(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Center(
-                    child: GestureDetector(
-                      child: CachedNetworkImage(
-                        imageUrl: c.urlFoto ?? "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png",
-                        width: 250,
-                        height: 120,
-                      ),
-                      onTap: (){_onClickCarro(context, c);},
-                    ),
-                  ),
-                  Text(
-                    c.nome ?? '',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    c.descricao ?? '',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+          return Container(
+            height: 280,
+            child: InkWell(
+              onTap: () {
+                _onClickCarro(context, c);
+              },
+              onLongPress: () {
+                _onLongClickCarro(context, c);
+              },
+              child: Card (
+                color: Colors.grey[100],
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      TextButton(
-                        child: const Text('Detalhes'),
-                        onPressed: () => _onClickCarro(context, c),
+                      Center(
+                        child: CachedNetworkImage(
+                          imageUrl: c.urlFoto ?? "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png",
+                          width: 250,
+                          height: 120,
+                        ),
                       ),
-                      const SizedBox(width: 8),
-                      TextButton(
-                        child: const Text('Share'),
-                        onPressed: () {
-                          /* ... */
-                        },
+                      Text(
+                        c.nome ?? '',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(width: 8),
+                      Text(
+                        c.descricao ?? '',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          TextButton(
+                            child: const Text('Detalhes'),
+                            onPressed: () => _onClickCarro(context, c),
+                          ),
+                          const SizedBox(width: 8),
+                          TextButton(
+                            child: const Text('Share'),
+                            onPressed: () {
+                              /* ... */
+                            },
+                          ),
+                          const SizedBox(width: 8),
+                        ],
+                      ),
                     ],
                   ),
-                ],
-              ),
 
+                ),
+              ),
             ),
           );
         },
@@ -74,7 +82,23 @@ class CarrosListView extends StatelessWidget {
     );
   }
 
-  _onClickCarro(context, Carro c) {
+  void _onClickCarro(context, Carro c) {
     push(context, CarroPage(c));
+  }
+
+  void _onLongClickCarro(BuildContext context, Carro c) {
+    showDialog(context: context, builder: (context){
+      return SimpleDialog(
+        title: Text(c.nome),
+        children: <Widget>[
+          ListTile(
+            title: Text('Detalhes'),
+          ),
+          ListTile(
+            title: Text('Share'),
+          )
+        ],
+      );
+    });
   }
 }
