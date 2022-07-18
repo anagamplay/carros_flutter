@@ -66,15 +66,16 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 20),
             StreamBuilder<bool>(
-                stream: _bloc.stream,
-                //initialData: false,
-                builder: (context, snapshot) {
-                  return AppButton(
-                    'Login',
-                    onPressed: _onClickLogin,
-                    showProgress: snapshot.data ?? false,
-                  );
-                }),
+              stream: _bloc.stream,
+              //initialData: false,
+              builder: (context, snapshot) {
+                return AppButton(
+                  'Login',
+                  onPressed: _onClickLogin,
+                  showProgress: snapshot.data ?? false,
+                );
+              }
+            ),
             Container(
               margin: EdgeInsets.only(top: 20),
               child: SignInButton(
@@ -84,19 +85,20 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Container(
-                margin: EdgeInsets.only(top: 20),
-                child: InkWell(
-                  onTap: _onClickCadastrar,
-                  child: Text(
-                    'Cadastre-se',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.blue,
-                      decoration: TextDecoration.underline,
-                    ),
+              margin: EdgeInsets.only(top: 20),
+              child: InkWell(
+                onTap: _onClickCadastrar,
+                child: Text(
+                  'Cadastre-se',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.blue,
+                    decoration: TextDecoration.underline,
                   ),
-                )),
+                ),
+              ),
+            ),
           ],
         ),
       ),
