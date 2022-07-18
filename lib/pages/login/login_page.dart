@@ -26,7 +26,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   initState() {
     super.initState();
-
   }
 
   @override
@@ -65,20 +64,17 @@ class _LoginPageState extends State<LoginPage> {
               keyboardType: TextInputType.number,
               focusNode: _focusSenha,
             ),
-            SizedBox(
-                height: 20
-            ),
+            SizedBox(height: 20),
             StreamBuilder<bool>(
-              stream: _bloc.stream,
-              //initialData: false,
-              builder: (context, snapshot) {
-                return AppButton(
-                  'Login',
-                  onPressed: _onClickLogin,
-                  showProgress: snapshot.data ?? false,
-                );
-              }
-            ),
+                stream: _bloc.stream,
+                //initialData: false,
+                builder: (context, snapshot) {
+                  return AppButton(
+                    'Login',
+                    onPressed: _onClickLogin,
+                    showProgress: snapshot.data ?? false,
+                  );
+                }),
             Container(
               margin: EdgeInsets.only(top: 20),
               child: SignInButton(
@@ -86,7 +82,21 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.all(7),
                 onPressed: _onClickGoolge,
               ),
-            )
+            ),
+            Container(
+                margin: EdgeInsets.only(top: 20),
+                child: InkWell(
+                  onTap: _onClickCadastrar,
+                  child: Text(
+                    'Cadastre-se',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                )),
           ],
         ),
       ),
@@ -106,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
     ApiResponse response = await _bloc.login(login, senha);
 
     if (response.ok == true) {
-      Usuario user = response.result;
+      Usuario? user = response.result;
       print('>>> $user');
       push(context, HomePage(), replace: true);
     } else {
@@ -147,5 +157,9 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       alert(context, response.msg);
     }
+  }
+
+  void _onClickCadastrar() {
+
   }
 }
