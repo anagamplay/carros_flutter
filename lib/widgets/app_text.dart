@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppText extends StatelessWidget {
 
   String label;
-  String hint;
+  String? hint;
   bool password;
   TextEditingController? controller;
   FormFieldValidator<String>? validator;

@@ -1,6 +1,7 @@
 import 'package:carros/firebase/firebase_service.dart';
 import 'package:carros/pages/api_response.dart';
 import 'package:carros/pages/carros/home_page.dart';
+import 'package:carros/pages/login/cadastro_page.dart';
 import 'package:carros/pages/login/login_bloc.dart';
 import 'package:carros/pages/login/usuario.dart';
 import 'package:carros/utils/alert.dart';
@@ -61,7 +62,6 @@ class _LoginPageState extends State<LoginPage> {
               password: true,
               controller: _tSenha,
               validator: _validateSenha,
-              keyboardType: TextInputType.number,
               focusNode: _focusSenha,
             ),
             SizedBox(height: 20),
@@ -162,6 +162,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onClickCadastrar() {
-
+    push(context, CadastroPage(), replace: true);
   }
 }
