@@ -9,10 +9,10 @@ class DrawerList extends StatelessWidget {
   UserAccountsDrawerHeader _header(Usuario user) {
 
     return UserAccountsDrawerHeader(
-      accountName: Text(user.nome),
-      accountEmail: Text(user.email),
+      accountName: Text(user.nome as String),
+      accountEmail: Text(user.email as String),
       currentAccountPicture: CircleAvatar(
-        backgroundImage: NetworkImage(user.urlFoto),
+        backgroundImage: NetworkImage(user.urlFoto as String),
       ),
     );
   }
@@ -28,7 +28,7 @@ class DrawerList extends StatelessWidget {
             FutureBuilder<Usuario?>(
               future: future,
               builder: (context, snapshot) {
-                Usuario user = snapshot.data as Usuario;
+                Usuario? user = snapshot.data;
 
                 return user != null ? _header(user) : Container();
               },
