@@ -8,7 +8,6 @@ import 'package:carros/utils/nav.dart';
 import 'package:carros/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 import '../../widgets/app_text.dart';
 
@@ -140,7 +139,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _onClickGoolge() async {
-    await Firebase.initializeApp();
     final service = FirebaseService();
     ApiResponse response = await service.loginGoogle();
 
