@@ -1,3 +1,8 @@
+import 'package:carros/firebase/firebase_service.dart';
+import 'package:carros/pages/carros/home_page.dart';
+import 'package:carros/pages/login/login_page.dart';
+import 'package:carros/utils/alert.dart';
+import 'package:carros/utils/nav.dart';
 import 'package:carros/widgets/app_button.dart';
 import 'package:carros/widgets/app_text.dart';
 import 'package:flutter/material.dart';
@@ -12,18 +17,20 @@ class _CadastroPageState extends State<CadastroPage> {
   final _tNome = TextEditingController();
   final _tEmail = TextEditingController();
   final _tSenha = TextEditingController();
-  final _tConfirmeSenha = TextEditingController();
+  //final _tConfirmeSenha = TextEditingController();
 
   final _focusNome = FocusNode();
   final _focusEmail = FocusNode();
   final _focusSenha = FocusNode();
-  final _focusConfirmeSenha = FocusNode();
+  //final _focusConfirmeSenha = FocusNode();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  @override
+  var _progress = false;
+
   void initState() {
     super.initState();
+
   }
 
   @override
@@ -71,10 +78,10 @@ class _CadastroPageState extends State<CadastroPage> {
               password: true,
               validator: _validateSenha,
               textInputAction: TextInputAction.next,
-              nextFocus: _focusConfirmeSenha,
+              //nextFocus: _focusConfirmeSenha,
               focusNode: _focusSenha,
             ),
-            SizedBox(height: 10),
+            /*SizedBox(height: 10),
             AppText(
               'Confirme a senha',
               'Digite a senha novamente',
@@ -83,13 +90,13 @@ class _CadastroPageState extends State<CadastroPage> {
               validator: _validateConfirmeSenha,
               textInputAction: TextInputAction.done,
               focusNode: _focusConfirmeSenha,
-            ),
+            ),*/
             SizedBox(height: 20),
             StreamBuilder<bool>(
               builder: (context, snapshot) {
                 return AppButton(
                   'Cadastrar',
-                  onPressed: _onClickCadastrar,
+                  onPressed: () => _onClickCadastrar(context),
                   showProgress: snapshot.data ?? false,
                 );
               }
@@ -100,7 +107,7 @@ class _CadastroPageState extends State<CadastroPage> {
                   return AppButton(
                     'Cancelar',
                     boxColor: Colors.red,
-                    onPressed: _onClickCancelar,
+                    onPressed: () => _onClickCancelar(context),
                     showProgress: snapshot.data ?? false,
                   );
                 }
@@ -118,18 +125,61 @@ class _CadastroPageState extends State<CadastroPage> {
     return null;
   }
 
-  String? _validateEmail(String? value) {
+  String? _validateEmail(String? text) {
+    if (text!.isEmpty) {
+      return "Informe o email";
+    }
+
+    return null;
   }
 
-  String? _validateSenha(String? value) {
+  String? _validateSenha(String? text) {
+    if (text!.isEmpty) {
+      return "Informe a senha";
+    }
+    if (text.length <= 2) {
+      return "Senha precisa ter mais de 2 números";
+    }
+
+    return null;
   }
 
-  String? _validateConfirmeSenha(String? value) {
+  /*String? _validateConfirmeSenha(String? value) {
+  }*/
+
+  _onClickCadastrar(context) async {
+    print('Cadastrar');
+
+    String nome = _tNome.text;
+    String email = _tEmail.text;
+    String senha = _tSenha.text;
+    //String confimeSenha = _tConfirmeSenha.text;
+
+    print('Nome: $nome, Email: $email, Senha: $senha');
+
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    setState(() {
+      _progress = true;
+    });
+
+    final service = FirebaseService();
+    final response = await service.cadastrar(nome, email, senha);
+
+    if(response.ok == true) {
+      push(context, HomePage(), replace: true,);
+    } else {
+      alert(context, response.msg);
+    }
+
+    setState(() {
+      _progress = false;
+    });
   }
 
-  _onClickCadastrar() {
-  }
-
-  _onClickCancelar() {
+  _onClickCancelar(context) {
+    push(context, LoginPage(), replace: true,);
   }
 }
