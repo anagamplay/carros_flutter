@@ -76,10 +76,8 @@ class FirebaseService {
   Future<ApiResponse> cadastrar(String nome, String email, String senha) async {
     try {
       //Cria um usuario
-      await _auth
-          .createUserWithEmailAndPassword(email: email, password: senha);
+      await _auth.createUserWithEmailAndPassword(email: email, password: senha);
 
-      FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
       User? user = _auth.currentUser;
 
       user?.updateDisplayName(nome); //Opcional
@@ -93,14 +91,9 @@ class FirebaseService {
       );
       usuario.save();
 
-      await firebaseFirestore
-          .collection("users")
-          .doc(user.uid)
-          .set(usuario.toJson());
-
-      print('Nome: ${usuario.nome}');
-      print('Email: ${usuario.email}');
-      print('Foto: ${usuario.urlFoto}');
+      print("Firebase Nome: ${usuario.nome}");
+      print("Firebase Email: ${usuario.email}");
+      print("Firebase Foto: ${usuario.urlFoto}");
 
       return ApiResponse.ok(msg:"Usuário criado com sucesso");
     } catch (error) {

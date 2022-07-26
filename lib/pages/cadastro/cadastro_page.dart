@@ -150,13 +150,6 @@ class _CadastroPageState extends State<CadastroPage> {
   _onClickCadastrar(context) async {
     print('Cadastrar');
 
-    String nome = _tNome.text;
-    String email = _tEmail.text;
-    String senha = _tSenha.text;
-    //String confimeSenha = _tConfirmeSenha.text;
-
-    print('Nome: $nome, Email: $email, Senha: $senha');
-
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -166,7 +159,7 @@ class _CadastroPageState extends State<CadastroPage> {
     });
 
     final service = FirebaseService();
-    final response = await service.cadastrar(nome, email, senha);
+    final response = await service.cadastrar(_tNome.text, _tEmail.text, _tSenha.text);
 
     if(response.ok == true) {
       push(context, HomePage(), replace: true,);
