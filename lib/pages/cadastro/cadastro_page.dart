@@ -181,8 +181,10 @@ class _CadastroPageState extends State<CadastroPage> {
     final response = await service.cadastrar(_tNome.text, _tEmail.text, _tSenha.text);
 
     if(response.ok == true) {
-      await alert(context, response.msg);
-      await Future.delayed(Duration(seconds: 3));
+      await Scaffold.of(context).showSnackBar(
+        SnackBar(content: Text(response.msg as String))
+      );
+      await Future.delayed(Duration(seconds: 1));
       push(context, HomePage(), replace: true,);
     } else {
       alert(context, response.msg);

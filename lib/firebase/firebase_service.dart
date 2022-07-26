@@ -95,7 +95,7 @@ class FirebaseService {
       print("Firebase Email: ${usuario.email}");
       print("Firebase Foto: ${usuario.urlFoto}");
 
-      return ApiResponse.ok(msg:"Usuário criado com sucesso");
+      return ApiResponse.ok(msg:"Usuário criado com sucesso!");
     } catch (error) {
       print(error);
 
