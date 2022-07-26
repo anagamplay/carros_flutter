@@ -37,76 +37,84 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _body() {
-    return Form(
-      key: _formKey,
-      child: Container(
-        padding: EdgeInsets.all(36),
-        child: ListView(
-          children: <Widget>[
-            SizedBox(height: 200,),
-            AppText(
-              'Login',
-              'Digite o login',
-              icon: Icons.account_circle,
-              controller: _tLogin,
-              validator: _validateLogin,
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.next,
-              nextFocus: _focusSenha,
-            ),
-            SizedBox(height: 25),
-            AppText(
-              'Senha',
-              'Digite a senha',
-              icon: Icons.vpn_key,
-              password: true,
-              controller: _tSenha,
-              validator: _validateSenha,
-              focusNode: _focusSenha,
-            ),
-            SizedBox(height: 35),
-            StreamBuilder<bool>(
-              stream: _bloc.stream,
-              //initialData: false,
-              builder: (context, snapshot) {
-                return AppButton(
-                  'Login',
-                  onPressed: _onClickLogin,
-                  showProgress: snapshot.data ?? false,
-                  backgroundColor: Colors.blue,
-                );
-              }
-            ),
-            SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+    return Center(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(36.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                GestureDetector(
-                  child: SignInButton(
-                    Buttons.GoogleDark,
-                    onPressed: _onClickGoolge,
-                  ),
+                SizedBox(height: 200,),
+                AppText(
+                  'Login',
+                  'Digite o login',
+                  icon: Icons.account_circle,
+                  controller: _tLogin,
+                  validator: _validateLogin,
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
+                  nextFocus: _focusSenha,
+                ),
+                SizedBox(height: 25),
+                AppText(
+                  'Senha',
+                  'Digite a senha',
+                  icon: Icons.vpn_key,
+                  password: true,
+                  controller: _tSenha,
+                  validator: _validateSenha,
+                  focusNode: _focusSenha,
+                ),
+                SizedBox(height: 35),
+                StreamBuilder<bool>(
+                  stream: _bloc.stream,
+                  initialData: false,
+                  builder: (context, snapshot) {
+                    return AppButton(
+                      'Login',
+                      onPressed: _onClickLogin,
+                      showProgress: snapshot.data ?? false,
+                      backgroundColor: Colors.blue,
+                    );
+                  }
+                ),
+                SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    GestureDetector(
+                      child: SignInButton(
+                        Buttons.GoogleDark,
+                        onPressed: _onClickGoolge,
+                      ),
+                    ),
+                  ]
+                ),
+                SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Não possui uma conta? ',),
+                    GestureDetector(
+                      onTap: _onClickCadastrar,
+                      child: Text('Cadastre-se', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 15),),
+                    )
+                  ]
                 ),
               ]
             ),
-            SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text('Não possui uma conta? ',),
-                GestureDetector(
-                  onTap: _onClickCadastrar,
-                  child: Text('Cadastre-se', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 15),),
-                )
-              ]
-            ),
-          ]
+          ),
         ),
       ),
     );
   }
 
   _onClickLogin() async {
+    FocusScope.of(context).unfocus();
+
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -163,6 +171,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onClickCadastrar() {
+    _tLogin.clear();
+    _tSenha.clear();
     push(context, CadastroPage());
   }
 }

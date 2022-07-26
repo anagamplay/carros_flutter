@@ -12,6 +12,7 @@ class AppText extends StatelessWidget {
   FocusNode? focusNode;
   FocusNode? nextFocus;
   IconData? icon;
+  bool autofocus;
 
   AppText(
     this.label,
@@ -24,6 +25,7 @@ class AppText extends StatelessWidget {
     this.focusNode,
     this.nextFocus,
     this.icon,
+    this.autofocus = false,
   });
 
   FocusNode? get _focusSenha => null;
@@ -37,6 +39,7 @@ class AppText extends StatelessWidget {
       keyboardType: keyboardType,
       textInputAction: textInputAction,
       focusNode: focusNode,
+      autofocus: autofocus,
       onFieldSubmitted: (String text) {
         if (nextFocus != null) {
           FocusScope.of(context).requestFocus(_focusSenha);
