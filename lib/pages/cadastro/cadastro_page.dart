@@ -47,22 +47,25 @@ class _CadastroPageState extends State<CadastroPage> {
     return Form(
       key: _formKey,
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(36),
         child: ListView(
           children: <Widget>[
+            SizedBox(height: 245,),
             AppText(
               'Nome',
               'Digite seu nome',
+              icon: Icons.account_circle,
               controller: _tNome,
               validator: _validateNome,
               textInputAction: TextInputAction.next,
               nextFocus: _focusEmail,
               focusNode: _focusNome,
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 25),
             AppText(
               'Email',
-              'Digite seu email',
+              'Informe seu email',
+              icon: Icons.mail,
               controller: _tEmail,
               validator: _validateEmail,
               keyboardType: TextInputType.emailAddress,
@@ -70,10 +73,11 @@ class _CadastroPageState extends State<CadastroPage> {
               nextFocus: _focusSenha,
               focusNode: _focusEmail,
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 25),
             AppText(
               'Senha',
               'Digite uma senha',
+              icon: Icons.vpn_key,
               controller: _tSenha,
               password: true,
               validator: _validateSenha,
@@ -91,26 +95,16 @@ class _CadastroPageState extends State<CadastroPage> {
               textInputAction: TextInputAction.done,
               focusNode: _focusConfirmeSenha,
             ),*/
-            SizedBox(height: 20),
+            SizedBox(height: 35),
             StreamBuilder<bool>(
               builder: (context, snapshot) {
                 return AppButton(
                   'Cadastrar',
                   onPressed: () => _onClickCadastrar(context),
                   showProgress: snapshot.data ?? false,
+                  backgroundColor: Colors.blue,
                 );
               }
-            ),
-            SizedBox(height: 20),
-            StreamBuilder<bool>(
-                builder: (context, snapshot) {
-                  return AppButton(
-                    'Cancelar',
-                    boxColor: Colors.red,
-                    onPressed: () => _onClickCancelar(context),
-                    showProgress: snapshot.data ?? false,
-                  );
-                }
             ),
           ],
         ),

@@ -11,6 +11,7 @@ class AppText extends StatelessWidget {
   TextInputAction? textInputAction;
   FocusNode? focusNode;
   FocusNode? nextFocus;
+  IconData? icon;
 
   AppText(
     this.label,
@@ -22,6 +23,7 @@ class AppText extends StatelessWidget {
     this.textInputAction,
     this.focusNode,
     this.nextFocus,
+    this.icon,
   });
 
   FocusNode? get _focusSenha => null;
@@ -45,18 +47,17 @@ class AppText extends StatelessWidget {
         height: 1,
       ),
       decoration: InputDecoration(
+        prefixIcon: Icon(icon),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(10),
         ),
           labelText: label,
           labelStyle: TextStyle(
-            fontSize: 16,
             color: Colors.grey,
           ),
           hintText: hint,
-          hintStyle: TextStyle(
-            fontSize: 16,
-          )),
+          ),
     );
   }
 }

@@ -32,9 +32,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Carros'),
-      ),
       body: _body(),
     );
   }
@@ -43,28 +40,31 @@ class _LoginPageState extends State<LoginPage> {
     return Form(
       key: _formKey,
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(36),
         child: ListView(
           children: <Widget>[
+            SizedBox(height: 200,),
             AppText(
               'Login',
               'Digite o login',
+              icon: Icons.account_circle,
               controller: _tLogin,
               validator: _validateLogin,
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               nextFocus: _focusSenha,
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 25),
             AppText(
               'Senha',
               'Digite a senha',
+              icon: Icons.vpn_key,
               password: true,
               controller: _tSenha,
               validator: _validateSenha,
               focusNode: _focusSenha,
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 35),
             StreamBuilder<bool>(
               stream: _bloc.stream,
               //initialData: false,
@@ -73,33 +73,34 @@ class _LoginPageState extends State<LoginPage> {
                   'Login',
                   onPressed: _onClickLogin,
                   showProgress: snapshot.data ?? false,
+                  backgroundColor: Colors.blue,
                 );
               }
             ),
-            Container(
-              margin: EdgeInsets.only(top: 20),
-              child: SignInButton(
-                Buttons.GoogleDark,
-                padding: EdgeInsets.all(7),
-                onPressed: _onClickGoolge,
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 20),
-              child: InkWell(
-                onTap: _onClickCadastrar,
-                child: Text(
-                  'Cadastre-se',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
+            SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                GestureDetector(
+                  child: SignInButton(
+                    Buttons.GoogleDark,
+                    onPressed: _onClickGoolge,
                   ),
                 ),
-              ),
+              ]
             ),
-          ],
+            SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('Não possui uma conta? ',),
+                GestureDetector(
+                  onTap: _onClickCadastrar,
+                  child: Text('Cadastre-se', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 15),),
+                )
+              ]
+            ),
+          ]
         ),
       ),
     );
@@ -162,6 +163,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onClickCadastrar() {
-    push(context, CadastroPage(), replace: true);
+    push(context, CadastroPage());
   }
 }
