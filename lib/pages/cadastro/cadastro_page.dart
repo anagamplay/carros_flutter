@@ -129,6 +129,10 @@ class _CadastroPageState extends State<CadastroPage> {
     if (text!.isEmpty) {
       return "Informe seu email";
     }
+    if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+        .hasMatch(text)) {
+      return ("Email inválido");
+    }
 
     return null;
   }
@@ -137,25 +141,29 @@ class _CadastroPageState extends State<CadastroPage> {
     if (text!.isEmpty) {
       return "Informe uma senha";
     }
-    if (text.length <= 2) {
-      return "A senha precisa ter mais de 2 caracteres";
+    if (text.length <= 5) {
+      return "Precisa ter no mínimo 6 caracteres";
     }
-    if(text != _tConfirmeSenha.text) {
-      return 'As senha não coincidem';
+    if(_tConfirmeSenha.text.isNotEmpty) {
+      if (text != _tConfirmeSenha.text) {
+        return 'As senha não coincidem';
+      }
     }
 
     return null;
   }
 
   String? _validateConfirmeSenha(String? text) {
-    if (text!.isEmpty) {
-      return "Confirme a senha";
-    }
-    if(text != _tSenha.text) {
-      return 'As senha não coincidem';
-    }
+    if(_tSenha.text.length >= 6) {
+      if (text!.isEmpty) {
+        return "Confirme a senha";
+      }
+      if (text != _tSenha.text) {
+        return 'As senha não coincidem';
+      }
 
-    return null;
+      return null;
+    }
   }
 
   _onClickCadastrar(context) async {
@@ -173,6 +181,8 @@ class _CadastroPageState extends State<CadastroPage> {
     final response = await service.cadastrar(_tNome.text, _tEmail.text, _tSenha.text);
 
     if(response.ok == true) {
+      await alert(context, response.msg);
+      await Future.delayed(Duration(seconds: 3));
       push(context, HomePage(), replace: true,);
     } else {
       alert(context, response.msg);

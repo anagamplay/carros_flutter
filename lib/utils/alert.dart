@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 alert(context, msg, {Function? callback}) {
   showDialog(
-    barrierDismissible: false, // Para não fechar quando clicar fora
+    barrierDismissible: false, // Para nao fechar ao clicar fora do alerta
     context: context,
     builder: (context) {
       return WillPopScope(
-        onWillPop: () async => false, // Se apertar no botao de voltar nao fecha
+        onWillPop: () async => false, // Para nao fechar ao voltar
         child: AlertDialog(
           title: const Text('Carros'),
           content: Text(msg),
