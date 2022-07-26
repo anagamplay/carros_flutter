@@ -53,7 +53,7 @@ class _CadastroPageState extends State<CadastroPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                SizedBox(height: 245,),
+                SizedBox(height: 200),
                 AppText(
                   'Nome',
                   'Digite seu nome',
