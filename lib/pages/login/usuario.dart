@@ -3,11 +3,11 @@ import 'dart:convert' as convert;
 import 'package:carros/utils/prefs.dart';
 
 class Usuario {
-  var login;
-  var nome;
-  var email;
-  var urlFoto;
-  var token;
+  String? login;
+  String? nome;
+  String? email;
+  String? urlFoto;
+  String? token;
   List<String>? roles;
 
   Usuario(

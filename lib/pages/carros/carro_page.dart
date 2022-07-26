@@ -57,7 +57,7 @@ class _CarroPageState extends State<CarroPage> {
             icon: Icon(Icons.videocam),
           ),
           PopupMenuButton<String>(
-            onSelected: _onCLockPopupMenu,
+            onSelected: _onClickPopupMenu,
             itemBuilder: (BuildContext context) {
               return [
                 PopupMenuItem(
@@ -180,7 +180,7 @@ class _CarroPageState extends State<CarroPage> {
     }
   }
 
-  _onCLockPopupMenu(String value) {
+  _onClickPopupMenu(String value) {
     switch (value) {
       case 'Editar':
         print('Editar ');

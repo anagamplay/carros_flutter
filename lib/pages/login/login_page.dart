@@ -1,5 +1,7 @@
+import 'package:carros/firebase/firebase_service.dart';
 import 'package:carros/pages/api_response.dart';
 import 'package:carros/pages/carros/home_page.dart';
+import 'package:carros/pages/cadastro/cadastro_page.dart';
 import 'package:carros/pages/login/login_bloc.dart';
 import 'package:carros/pages/login/usuario.dart';
 import 'package:carros/utils/alert.dart';
@@ -25,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   initState() {
     super.initState();
-
   }
 
   @override
@@ -61,12 +62,9 @@ class _LoginPageState extends State<LoginPage> {
               password: true,
               controller: _tSenha,
               validator: _validateSenha,
-              keyboardType: TextInputType.number,
               focusNode: _focusSenha,
             ),
-            SizedBox(
-                height: 20
-            ),
+            SizedBox(height: 20),
             StreamBuilder<bool>(
               stream: _bloc.stream,
               //initialData: false,
@@ -85,7 +83,22 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.all(7),
                 onPressed: _onClickGoolge,
               ),
-            )
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child: InkWell(
+                onTap: _onClickCadastrar,
+                child: Text(
+                  'Cadastre-se',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.blue,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -105,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
     ApiResponse response = await _bloc.login(login, senha);
 
     if (response.ok == true) {
-      Usuario user = response.result;
+      Usuario? user = response.result;
       print('>>> $user');
       push(context, HomePage(), replace: true);
     } else {
@@ -137,7 +150,18 @@ class _LoginPageState extends State<LoginPage> {
     _bloc.dispose();
   }
 
-  _onClickGoolge() {
-    print('google');
+  _onClickGoolge() async {
+    final service = FirebaseService();
+    ApiResponse response = await service.loginGoogle();
+
+    if (response.ok == true) {
+      push(context, HomePage(), replace: true);
+    } else {
+      alert(context, response.msg);
+    }
+  }
+
+  void _onClickCadastrar() {
+    push(context, CadastroPage(), replace: true);
   }
 }

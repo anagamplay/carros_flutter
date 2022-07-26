@@ -2,9 +2,11 @@ import 'package:carros/pages/favoritos/favoritos_model.dart';
 import 'package:carros/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() {
   runApp(const MyApp());
+  Firebase.initializeApp();
 }
 
 class MyApp extends StatelessWidget {

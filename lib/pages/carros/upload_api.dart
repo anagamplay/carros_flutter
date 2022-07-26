@@ -11,7 +11,7 @@ class UploadApi {
   static Future<ApiResponse<String>> upload(File? file) async {
     try {
       var uri = Uri.parse('https://carros-springboot.herokuapp.com/api/v2/upload');
-      var url = "https://carros-springboot.herokuapp.com/api/v2/upload";
+      var url = "https://carros-springboot.herokuapp.com/api/v1/upload";
 
       List<int> imageBytes = file!.readAsBytesSync();
       String base64Image = convert.base64Encode(imageBytes);
@@ -45,10 +45,10 @@ class UploadApi {
 
       String urlFoto = map["url"];
 
-      return ApiResponse.ok(urlFoto);
+      return ApiResponse.ok(result: urlFoto);
     } catch (error, exception) {
       print("Erro ao fazer upload $error - $exception");
-      return ApiResponse.error("Não foi possível fazer o upload");
+      return ApiResponse.error(msg: "Não foi possível fazer o upload");
     }
   }
 
