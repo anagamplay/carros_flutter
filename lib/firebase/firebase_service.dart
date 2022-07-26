@@ -7,7 +7,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 class FirebaseService {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  var _data;
 
   Future<ApiResponse> login(email, senha) async {
     try {
@@ -77,14 +76,11 @@ class FirebaseService {
     try {
       // Usuario do Firebase
       var result = await _auth.createUserWithEmailAndPassword(email: email, password: senha);
-      var fUser = result.user;
-      print("Firebase Nome: ${fUser?.displayName}");
-      print("Firebase Email: ${fUser?.email}");
-      print("Firebase Foto: ${fUser?.photoURL}");
+      User? fUser = result.user;
 
       // Dados para atualizar o usuário
       fUser?.updateDisplayName(nome);
-      fUser?.updatePhotoURL("https://s3-sa-east-1.amazonaws.com/livetouch-temp/livrows/foto.png");
+      fUser?.updatePhotoURL("https://www.plataformasintese.com/images/defaultPhotoUser.png");
 
       print("Firebase Nome: ${fUser?.displayName}");
       print("Firebase Email: ${fUser?.email}");
