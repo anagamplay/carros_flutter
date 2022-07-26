@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:carros/pages/api_response.dart';
 import 'package:carros/pages/login/usuario.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -74,19 +75,33 @@ class FirebaseService {
 
   Future<ApiResponse> cadastrar(String nome, String email, String senha) async {
     try {
-      // Usuario do Firebase
-      var result = await _auth.createUserWithEmailAndPassword(email: email, password: senha);
-      User? fUser = result.user;
+      //Cria um usuario
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: senha);
 
-      // Dados para atualizar o usuário
-      fUser?.updateDisplayName(nome);
-      fUser?.updatePhotoURL("https://www.plataformasintese.com/images/defaultPhotoUser.png");
+      FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+      User? user = _auth.currentUser;
 
-      print("Firebase Nome: ${fUser?.displayName}");
-      print("Firebase Email: ${fUser?.email}");
-      print("Firebase Foto: ${fUser?.photoURL}");
+      user?.updateDisplayName(nome); //Opcional
 
-      // Resposta genérica
+      final usuario = Usuario(
+        login: user!.email,
+        nome: nome,
+        email: user.email,
+        urlFoto: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+        token: user.uid,
+      );
+      usuario.save();
+
+      await firebaseFirestore
+          .collection("users")
+          .doc(user.uid)
+          .set(usuario.toJson());
+
+      print('Nome: ${usuario.nome}');
+      print('Email: ${usuario.email}');
+      print('Foto: ${usuario.urlFoto}');
+
       return ApiResponse.ok(msg:"Usuário criado com sucesso");
     } catch (error) {
       print(error);
