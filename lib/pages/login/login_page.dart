@@ -131,32 +131,8 @@ class _LoginPageState extends State<LoginPage> {
       print('>>> $user');
       push(context, HomePage(), replace: true);
     } else {
-      alert(context, response.msg);
+      alert(context, 'Login ou senha inválidos');
     }
-  }
-
-  String? _validateLogin(String? text) {
-    if (text!.isEmpty) {
-      return 'Digite o login';
-    }
-    return null;
-  }
-
-  String? _validateSenha(String? text) {
-    if (text!.isEmpty) {
-      return 'Digite a senha';
-    }
-    if (text.length < 3) {
-      return 'A senha precisa ter pelo menos 3 números';
-    }
-    return null;
-  }
-
-  @override
-  dispose() {
-    super.dispose();
-
-    _bloc.dispose();
   }
 
   _onClickGoolge() async {
@@ -174,5 +150,25 @@ class _LoginPageState extends State<LoginPage> {
     _tLogin.clear();
     _tSenha.clear();
     push(context, CadastroPage());
+  }
+
+  String? _validateLogin(String? text) {
+    if (text!.isEmpty) {
+      return 'Informe o login';
+    }
+    return null;
+  }
+
+  String? _validateSenha(String? text) {
+    if (text!.isEmpty) {
+      return 'Informe a senha';
+    }
+    return null;
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    _bloc.dispose();
   }
 }
