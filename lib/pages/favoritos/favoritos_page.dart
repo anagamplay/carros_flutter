@@ -1,9 +1,7 @@
 import 'package:carros/pages/carros/carro.dart';
 import 'package:carros/pages/carros/carros_listview.dart';
-import 'package:carros/pages/favoritos/favoritos_model.dart';
 import 'package:carros/widgets/text_error.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 
@@ -27,8 +25,8 @@ class _FavoritosPageState extends State<FavoritosPage>
   Widget build(BuildContext context) {
     super.build(context);
 
-    return StreamBuilder(
-        stream: _bloc.stream,
+    return StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection('carros').snapshots(),
         builder: (
             context,
             snapshot,
@@ -43,9 +41,11 @@ class _FavoritosPageState extends State<FavoritosPage>
             );
           }
 
-          List<Carro> carros = snapshot.data as List<Carro>;
+          List<Carro> carros = snapshot.data!.docs.map((DocumentSnapshot document) {
+            return Carro.fromMap(document.data as Map<String, dynamic>);
+          }).toList();
 
-          return CarrosListView(carros),
+          return CarrosListView(carros);
         }
     );
   }
