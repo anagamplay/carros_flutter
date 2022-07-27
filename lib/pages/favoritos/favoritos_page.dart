@@ -1,5 +1,6 @@
 import 'package:carros/pages/carros/carro.dart';
 import 'package:carros/pages/carros/carros_listview.dart';
+import 'package:carros/pages/favoritos/favorito_service.dart';
 import 'package:carros/widgets/text_error.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,10 +26,8 @@ class _FavoritosPageState extends State<FavoritosPage>
   Widget build(BuildContext context) {
     super.build(context);
 
-    final Stream<QuerySnapshot> _favoritosStream = FirebaseFirestore.instance.collection('carros').snapshots();
-
     return StreamBuilder<QuerySnapshot>(
-        stream: _favoritosStream,
+        stream: FavoritoService().stream,
         builder: (context, snapshot,) {
           if (snapshot.hasError) {
             return TextError('[ERRO]Não foi possível buscar os carros');

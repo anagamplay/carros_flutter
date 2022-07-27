@@ -1,5 +1,5 @@
-import 'package:carros/pages/favoritos/favoritos_model.dart';
 import 'package:carros/splash_page.dart';
+import 'package:carros/utils/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,8 +15,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<FavoritosModel>(
-          create: (context) => FavoritosModel(),
+        Provider<EventBus>(
+          create: (context) => EventBus(),
+          dispose: (context, bus) => bus.dispose(),
         )
       ],
       child: MaterialApp(

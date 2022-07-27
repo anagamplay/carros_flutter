@@ -1,16 +1,15 @@
 import 'dart:async';
 
-import 'package:carros/firebase/firebase_service.dart';
 import 'package:carros/pages/api_response.dart';
-import 'package:carros/pages/carros/simple_bloc.dart';
+import 'package:carros/pages/login/login_api.dart';
+import 'package:carros/utils/simple_bloc.dart';
 
-class LoginBloc extends SimpleBloc<bool>{
+class LoginBloc extends BooleanBloc{
 
   Future<ApiResponse> login(login, senha) async {
     add(true);
 
-    // ApiResponse response = await LoginApi.login(login, senha);
-    ApiResponse response = await FirebaseService().login(login, senha);
+    ApiResponse response = await LoginApi.login(login, senha);
 
     add(false);
 

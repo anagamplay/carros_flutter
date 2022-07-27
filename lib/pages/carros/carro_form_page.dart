@@ -74,23 +74,18 @@ class _CarroFormPageState extends State<CarroFormPage> {
       child: ListView(
         children: <Widget>[
           _headerFoto(),
-          Text('Clique na imagem para tira uma foto',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey,
+          InkWell(
+            onTap: onCLickFoto,
+            child: Text('Clique para adicionar imagem',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
             ),
           ),
           Divider(),
-          Text(
-            "Tipo",
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 20,
-            ),
-          ),
-          _radioTipo(),
-          Divider(),
+          SizedBox(height: 45),
           AppText(
             "Nome",
             "",
@@ -98,16 +93,21 @@ class _CarroFormPageState extends State<CarroFormPage> {
             keyboardType: TextInputType.text,
             validator: _validateNome as String? Function(String?),
           ),
+          SizedBox(height: 25),
           AppText(
             "Descrição",
             "",
             controller: tDesc,
             keyboardType: TextInputType.text,
           ),
+          SizedBox(height: 25),
+          _radioTipo(),
+          SizedBox(height: 35),
           AppButton(
             "Salvar",
             onPressed: _onClickSalvar,
             showProgress: _showProgress,
+            backgroundColor: Colors.blue,
           )
         ],
       ),
@@ -121,7 +121,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
         ? Image.file(
             _file!,
             height: 150,)
-        : carro != null
+        : carro != null && carro?.urlFoto != null
         ? CachedNetworkImage(
             imageUrl: carro?.urlFoto ?? "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png",
             height: 150,)
@@ -133,7 +133,6 @@ class _CarroFormPageState extends State<CarroFormPage> {
 
   _radioTipo() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Radio(
           value: 0,

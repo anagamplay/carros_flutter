@@ -10,7 +10,7 @@ import 'package:path/path.dart' as path;
 class UploadApi {
   static Future<ApiResponse<String>> upload(File? file) async {
     try {
-      var uri = Uri.parse('https://carros-springboot.herokuapp.com/api/v2/upload');
+      var uri = Uri.parse('https://carros-springboot.herokuapp.com/api/v1/upload');
       var url = "https://carros-springboot.herokuapp.com/api/v1/upload";
 
       List<int> imageBytes = file!.readAsBytesSync();
