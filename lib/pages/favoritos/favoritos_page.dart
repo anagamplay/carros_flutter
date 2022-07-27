@@ -25,12 +25,11 @@ class _FavoritosPageState extends State<FavoritosPage>
   Widget build(BuildContext context) {
     super.build(context);
 
+    final Stream<QuerySnapshot> _favoritosStream = FirebaseFirestore.instance.collection('carros').snapshots();
+
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('carros').snapshots(),
-        builder: (
-            context,
-            snapshot,
-            ) {
+        stream: _favoritosStream,
+        builder: (context, snapshot,) {
           if (snapshot.hasError) {
             return TextError('[ERRO]Não foi possível buscar os carros');
           }
@@ -42,7 +41,8 @@ class _FavoritosPageState extends State<FavoritosPage>
           }
 
           List<Carro> carros = snapshot.data!.docs.map((DocumentSnapshot document) {
-            return Carro.fromMap(document.data as Map<String, dynamic>);
+            Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+            return Carro.fromMap(data);
           }).toList();
 
           return CarrosListView(carros);
