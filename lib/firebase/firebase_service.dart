@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+String? firebaseUserUid;
+
 class FirebaseService {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -26,6 +28,8 @@ class FirebaseService {
         urlFoto: fUser.photoURL,
       );
       user.save();
+
+      saveUser(fUser);
 
       // Resposta genérica
       return ApiResponse.ok();
@@ -65,6 +69,8 @@ class FirebaseService {
       );
       user.save();
 
+      saveUser(fUser);
+
       // Resposta genérica
       return ApiResponse.ok();
     } catch (error) {
@@ -73,23 +79,40 @@ class FirebaseService {
     }
   }
 
+  // Salva o usuario na colletion de usuarios logados
+  void saveUser(User fUser) {
+    if (fUser != null) {
+      var firebaseUserUid = fUser.uid;
+      DocumentReference refUser = FirebaseFirestore.instance.collection('users').doc(firebaseUserUid);
+      refUser.set({
+        'nome': fUser.displayName,
+        'email': fUser.email,
+        'login': fUser.email,
+        'urlFoto': fUser.photoURL,
+      });
+    }
+  }
+
   Future<ApiResponse> cadastrar(String nome, String email, String senha) async {
     try {
       //Cria um usuario
       await _auth.createUserWithEmailAndPassword(email: email, password: senha);
 
-      User? user = _auth.currentUser;
+      User? fUser = _auth.currentUser;
 
-      user?.updateDisplayName(nome); //Opcional
+      fUser!.updateDisplayName(nome); //Opcional
+      fUser.updatePhotoURL('https://cdn-icons-png.flaticon.com/512/149/149071.png');
 
       final usuario = Usuario(
-        login: user!.email,
+        login: fUser.email,
         nome: nome,
-        email: user.email,
+        email: fUser.email,
         urlFoto: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
-        token: user.uid,
+        token: fUser.uid,
       );
       usuario.save();
+
+      saveUser(fUser);
 
       print("Firebase Nome: ${usuario.nome}");
       print("Firebase Email: ${usuario.email}");

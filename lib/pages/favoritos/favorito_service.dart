@@ -1,10 +1,12 @@
+import 'package:carros/firebase/firebase_service.dart';
 import 'package:carros/pages/carros/carro.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FavoritoService {
 
    get _users => FirebaseFirestore.instance.collection("users");
-   get _carros => FirebaseFirestore.instance.collection('carros');
+   get _carros => _users.doc(firebaseUserUid).collection('carros');
+
    get stream => _carros.snapshots();
 
    Future<bool?> favoritar(Carro c) async {
@@ -28,7 +30,7 @@ class FavoritoService {
 
    Future<bool> isFavorito(Carro c) async{
 
-      DocumentReference docRef = _carros.doc('$c.id');
+      DocumentReference docRef = _carros.doc('{$c.id}');
 
       DocumentSnapshot doc = await docRef.get();
 

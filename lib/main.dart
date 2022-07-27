@@ -6,7 +6,6 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() {
   runApp(const MyApp());
-  Firebase.initializeApp();
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
         Provider<EventBus>(
           create: (context) => EventBus(),
           dispose: (context, bus) => bus.dispose(),
-        )
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
