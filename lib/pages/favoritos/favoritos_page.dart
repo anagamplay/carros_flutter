@@ -28,7 +28,7 @@ class _FavoritosPageState extends State<FavoritosPage>
 
     return StreamBuilder<QuerySnapshot>(
         stream: FavoritoService().stream,
-        builder: (context, snapshot,) {
+        builder: (context, snapshot) {
           if (snapshot.hasError) {
             return TextError('[ERRO]Não foi possível buscar os carros');
           }

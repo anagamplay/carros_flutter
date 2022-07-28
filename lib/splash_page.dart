@@ -5,8 +5,6 @@ import 'package:carros/utils/nav.dart';
 import 'package:carros/utils/sql/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -23,7 +21,6 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
-
     // Inicializar o banco de dados
     Future futureA = DatabaseHelper.getInstance().db;
 
@@ -54,13 +51,5 @@ class _SplashPageState extends State<SplashPage> {
         child: CircularProgressIndicator(),
       ),
     );
-  }
-
-  Future<DocumentSnapshot> getData() async {
-    await Firebase.initializeApp();
-    return await FirebaseFirestore.instance
-        .collection("users")
-        .doc("docID")
-        .get();
   }
 }

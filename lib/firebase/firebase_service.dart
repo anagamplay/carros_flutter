@@ -15,7 +15,7 @@ class FirebaseService {
     try {
       // Login no Firebase
       var result = await _auth.signInWithEmailAndPassword(email: email, password: senha);
-      final fUser = result.user;
+      final User? fUser = result.user;
       print("Firebase Nome: ${fUser!.displayName}");
       print("Firebase Email: ${fUser.email}");
       print("Firebase Foto: ${fUser.photoURL}");
@@ -29,6 +29,7 @@ class FirebaseService {
       );
       user.save();
 
+      // Salva no Firestore
       saveUser(fUser);
 
       // Resposta genérica
@@ -69,6 +70,7 @@ class FirebaseService {
       );
       user.save();
 
+      // Salva no Firestore
       saveUser(fUser);
 
       // Resposta genérica
@@ -82,7 +84,7 @@ class FirebaseService {
   // Salva o usuario na colletion de usuarios logados
   void saveUser(User fUser) {
     if (fUser != null) {
-      var firebaseUserUid = fUser.uid;
+      firebaseUserUid = fUser.uid;
       DocumentReference refUser = FirebaseFirestore.instance.collection('users').doc(firebaseUserUid);
       refUser.set({
         'nome': fUser.displayName,
@@ -96,15 +98,11 @@ class FirebaseService {
   Future<ApiResponse> cadastrar(String nome, String email, String senha) async {
     try {
       //Cria um usuario
-      await _auth.createUserWithEmailAndPassword(email: email, password: senha);
-
-      User? fUser = _auth.currentUser;
-
-      fUser!.updateDisplayName(nome); //Opcional
-      fUser.updatePhotoURL('https://cdn-icons-png.flaticon.com/512/149/149071.png');
+      var result = await _auth.createUserWithEmailAndPassword(email: email, password: senha);
+      User? fUser = result.user;
 
       final usuario = Usuario(
-        login: fUser.email,
+        login: fUser!.email,
         nome: nome,
         email: fUser.email,
         urlFoto: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
@@ -112,7 +110,15 @@ class FirebaseService {
       );
       usuario.save();
 
-      saveUser(fUser);
+      // Salva no Firestore
+      firebaseUserUid = fUser.uid;
+      DocumentReference refUser = FirebaseFirestore.instance.collection('users').doc(firebaseUserUid);
+      refUser.set({
+        'nome': nome,
+        'email': fUser.email,
+        'login': fUser.email,
+        'urlFoto': "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+      });
 
       print("Firebase Nome: ${usuario.nome}");
       print("Firebase Email: ${usuario.email}");
