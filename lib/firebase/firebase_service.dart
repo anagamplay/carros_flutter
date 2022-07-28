@@ -101,14 +101,14 @@ class FirebaseService {
       var result = await _auth.createUserWithEmailAndPassword(email: email, password: senha);
       User? fUser = result.user;
 
-      final usuario = Usuario(
+      final user = Usuario(
         login: fUser!.email,
         nome: nome,
         email: fUser.email,
         urlFoto: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
         token: fUser.uid,
       );
-      usuario.save();
+      user.save();
 
       // Salva no Firestore
       firebaseUserUid = fUser.uid;
@@ -120,9 +120,9 @@ class FirebaseService {
         'urlFoto': "https://cdn-icons-png.flaticon.com/512/149/149071.png",
       });
 
-      print("Firebase Nome: ${usuario.nome}");
-      print("Firebase Email: ${usuario.email}");
-      print("Firebase Foto: ${usuario.urlFoto}");
+      print("Firebase Nome: ${user.nome}");
+      print("Firebase Email: ${user.email}");
+      print("Firebase Foto: ${user.urlFoto}");
 
       return ApiResponse.ok(msg:"Usuário criado com sucesso!");
     } catch (error) {
