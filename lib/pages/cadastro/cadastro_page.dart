@@ -7,7 +7,6 @@ import 'package:carros/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 
 class CadastroPage extends StatefulWidget {
-
   @override
   State<CadastroPage> createState() => _CadastroPageState();
 }
@@ -29,7 +28,6 @@ class _CadastroPageState extends State<CadastroPage> {
 
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -100,15 +98,34 @@ class _CadastroPageState extends State<CadastroPage> {
                   focusNode: _focusConfirmeSenha,
                 ),
                 SizedBox(height: 35),
-                StreamBuilder<bool>(
-                  builder: (context, snapshot) {
-                    return AppButton(
-                      'Cadastrar',
-                      onPressed: () => _onClickCadastrar(context),
-                      showProgress: snapshot.data ?? false,
-                      backgroundColor: Colors.blue,
-                    );
-                  }
+                Material(
+                  elevation: 5,
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.blue,
+                  child: MaterialButton(
+                    padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                    minWidth: MediaQuery.of(context).size.width,
+                    onPressed: () => _onClickCadastrar(context),
+                    child: _progress
+                      ? Center(
+                          child: Container(
+                            height: 25,
+                            width: 25,
+                            child: CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
+                            ),
+                          ),
+                        )
+                      : Text(
+                          'Cadastrar',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                  ),
                 ),
               ],
             ),
@@ -129,8 +146,7 @@ class _CadastroPageState extends State<CadastroPage> {
     if (text!.isEmpty) {
       return "Informe seu email";
     }
-    if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-        .hasMatch(text)) {
+    if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(text)) {
       return ("Email inválido");
     }
 
@@ -144,7 +160,7 @@ class _CadastroPageState extends State<CadastroPage> {
     if (text.length <= 5) {
       return "Precisa ter no mínimo 6 caracteres";
     }
-    if(_tConfirmeSenha.text.isNotEmpty) {
+    if (_tConfirmeSenha.text.isNotEmpty) {
       if (text != _tConfirmeSenha.text) {
         return 'As senha não coincidem';
       }
@@ -154,7 +170,7 @@ class _CadastroPageState extends State<CadastroPage> {
   }
 
   String? _validateConfirmeSenha(String? text) {
-    if(_tSenha.text.length >= 6) {
+    if (_tSenha.text.length >= 6) {
       if (text!.isEmpty) {
         return "Confirme a senha";
       }
@@ -180,11 +196,8 @@ class _CadastroPageState extends State<CadastroPage> {
     final service = FirebaseService();
     final response = await service.cadastrar(_tNome.text, _tEmail.text, _tSenha.text);
 
-    if(response.ok == true) {
-      await Scaffold.of(context).showSnackBar(
-        SnackBar(content: Text(response.msg as String))
-      );
-      await Future.delayed(Duration(seconds: 1));
+    if (response.ok == true) {
+      await ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(response.msg as String)));
       push(context, HomePage(), replace: true,);
     } else {
       alert(context, response.msg);
