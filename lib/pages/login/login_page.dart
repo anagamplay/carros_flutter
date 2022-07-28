@@ -18,8 +18,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
   final _formKey = GlobalKey<FormState>();
   final _bloc = LoginBloc();
+
   final _tLogin = TextEditingController();
   final _tSenha = TextEditingController();
   final _focusSenha = FocusNode();
@@ -76,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                     return AppButton(
                       'Login',
                       onPressed: _onClickLogin,
-                      showProgress: snapshot.data ?? false,
+                      showProgress: snapshot.data as bool,
                       backgroundColor: Colors.blue,
                     );
                   }

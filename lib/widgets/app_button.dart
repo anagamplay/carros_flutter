@@ -7,7 +7,12 @@ class AppButton extends StatelessWidget {
 
   bool showProgress;
 
-  AppButton(this.text, {this.onPressed, this.showProgress = false, this.backgroundColor,});
+  AppButton(
+    this.text, {
+    this.onPressed,
+    this.showProgress = false,
+    this.backgroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +23,25 @@ class AppButton extends StatelessWidget {
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
-        child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
         onPressed: onPressed,
+        child: showProgress
+            ? Center(
+                child: Container(
+                  height: 25,
+                  width: 25,
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  ),
+                ),
+              )
+            : Text(
+                text,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
       ),
     );
   }
