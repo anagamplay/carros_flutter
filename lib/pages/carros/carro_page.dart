@@ -159,8 +159,11 @@ class _CarroPageState extends State<CarroPage> {
           stream: _loripsumApiBloc.stream,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (!snapshot.hasData) {
-              return Center(
-                child: CircularProgressIndicator(),
+              return Container(
+                padding: EdgeInsets.all(45),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
               );
             }
             return text(snapshot.data, fontSize: 16);
