@@ -10,6 +10,7 @@ import 'package:carros/utils/nav.dart';
 import 'package:carros/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 import '../../widgets/app_text.dart';
 
@@ -32,6 +33,21 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
 
     initFcm();
+
+    try {
+      final remoteConfig = FirebaseRemoteConfig.instance;
+
+      remoteConfig.setConfigSettings(RemoteConfigSettings(
+        fetchTimeout: const Duration(seconds: 10),
+        minimumFetchInterval: Duration.zero,
+      ));
+      remoteConfig.fetchAndActivate();
+
+      print('Mensagem: ${remoteConfig.getString('mensagem')}');
+    } catch (exception) {
+      print('Unable to fetch remote config. Cached or default values will be ''used');
+      print(exception);
+    }
   }
 
   @override
