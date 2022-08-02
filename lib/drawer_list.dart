@@ -4,6 +4,8 @@ import 'package:carros/pages/login/usuario.dart';
 import 'package:carros/utils/nav.dart';
 import 'package:flutter/material.dart';
 
+import 'pages/configuracoes/configuracoes_page.dart';
+
 class DrawerList extends StatelessWidget {
   const DrawerList({Key? key}) : super(key: key);
 
@@ -57,6 +59,12 @@ class DrawerList extends StatelessWidget {
               },
             ),
             ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Configurações'),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () => _onClickConfiguracoes(context),
+            ),
+            ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('Logout'),
               trailing: Icon(Icons.arrow_forward),
@@ -73,5 +81,10 @@ class DrawerList extends StatelessWidget {
     FirebaseService().logout();
     Navigator.pop(context);
     push(context, LoginPage(), replace: true);
+  }
+
+  _onClickConfiguracoes(BuildContext context) {
+    Navigator.pop(context);
+    push(context, ConfiguracoesPage());
   }
 }
