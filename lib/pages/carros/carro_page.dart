@@ -9,7 +9,9 @@ import 'package:carros/utils/alert.dart';
 import 'package:carros/utils/nav.dart';
 import 'package:carros/widgets/text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:string_extensions/string_extensions.dart';
 
 class CarroPage extends StatefulWidget {
   Carro carro;
@@ -48,10 +50,6 @@ class _CarroPageState extends State<CarroPage> {
           widget.carro.nome,
         ),
         actions: <Widget>[
-          IconButton(
-            onPressed: _onClickMapa,
-            icon: Icon(Icons.place),
-          ),
           IconButton(
             onPressed: _onClickVideo,
             icon: Icon(Icons.videocam),
@@ -97,47 +95,60 @@ class _CarroPageState extends State<CarroPage> {
     );
   }
 
-  Row _bloco1() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              width: 280,
-              child: text(
-                widget.carro.nome,
-                fontSize: 20,
-                bold: true,
+  _bloco1() {
+    String tipo = widget.carro.tipo;
+    String? tipoCapitalize = tipo.capitalize;
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Flexible(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Flexible(
+                      child: Text(
+                          widget.carro.nome,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            text(
-              widget.carro.tipo,
-              fontSize: 16,
-            ),
-          ],
-        ),
-        Row(
-          children: <Widget>[
-            IconButton(
-              onPressed: _onClickFavorito,
-              icon: Icon(
-                Icons.favorite,
-                color: color,
-                size: 35,
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: _onClickFavorito,
+                    icon: Icon(
+                      Icons.favorite,
+                      color: color,
+                      size: 35,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: _onClickShare,
+                    icon: Icon(
+                      Icons.share,
+                      size: 35,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            IconButton(
-              onPressed: _onClickShare,
-              icon: Icon(
-                Icons.share,
-                size: 35,
-              ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+          Text(tipoCapitalize!)
+        ],
+      ),
     );
   }
 
@@ -149,7 +160,7 @@ class _CarroPageState extends State<CarroPage> {
           height: 20,
         ),
         text(
-          widget.carro.descricao ?? '',
+          widget.carro.descricao,
           fontSize: 16,
         ),
         SizedBox(
@@ -172,8 +183,6 @@ class _CarroPageState extends State<CarroPage> {
       ],
     );
   }
-
-  void _onClickMapa() {}
 
   void _onClickVideo() {
     if(carro.urlVideo != null && carro.urlVideo.isNotEmpty){

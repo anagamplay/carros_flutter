@@ -5,6 +5,7 @@ Text text (
     double fontSize = 16,
     color = Colors.black,
     bold = false,
+    overflow,
  }) {
   return Text(
     s,
@@ -12,6 +13,7 @@ Text text (
       fontSize: fontSize,
       color: color,
       fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+      overflow: overflow,
     ),
   );
 }

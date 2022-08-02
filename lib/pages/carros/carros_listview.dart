@@ -41,7 +41,7 @@ class CarrosListView extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      c.nome ?? '',
+                      c.nome,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
