@@ -19,61 +19,57 @@ class CarrosListView extends StatelessWidget {
         itemBuilder: (context, index) {
           Carro c = carros![index];
 
-          return Container(
-            height: 280,
-            child: InkWell(
-              onTap: () {
-                _onClickCarro(context, c);
-              },
-              onLongPress: () {
-                _onLongClickCarro(context, c);
-              },
-              child: Card (
-                color: Colors.grey[100],
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Center(
-                        child: CachedNetworkImage(
-                          imageUrl: c.urlFoto ?? "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png",
-                          width: 250,
-                          height: 120,
+          return InkWell(
+            onTap: () {
+              _onClickCarro(context, c);
+            },
+            onLongPress: () {
+              _onLongClickCarro(context, c);
+            },
+            child: Card (
+              color: Colors.grey[100],
+              child: Container(
+                padding: EdgeInsets.all(15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Center(
+                      child: CachedNetworkImage(
+                        imageUrl: c.urlFoto ?? "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png",
+                        width: 250,
+                        height: 120,
+                      ),
+                    ),
+                    Text(
+                      c.nome ?? '',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      c.descricao ?? '',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        TextButton(
+                          child: const Text('Detalhes'),
+                          onPressed: () => _onClickCarro(context, c),
                         ),
-                      ),
-                      Text(
-                        c.nome ?? '',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        c.descricao ?? '',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          TextButton(
-                            child: const Text('Detalhes'),
-                            onPressed: () => _onClickCarro(context, c),
-                          ),
-                          const SizedBox(width: 8),
-                          TextButton(
-                            child: const Text('Share'),
-                            onPressed: () {
-                              _onClickShare(context, c);
-                            },
-                          ),
-                          const SizedBox(width: 8),
-                        ],
-                      ),
-                    ],
-                  ),
-
+                        const SizedBox(width: 8),
+                        TextButton(
+                          child: const Text('Share'),
+                          onPressed: () {
+                            _onClickShare(context, c);
+                          },
+                        ),
+                        const SizedBox(width: 8),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
