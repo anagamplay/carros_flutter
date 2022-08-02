@@ -10,15 +10,15 @@ import 'package:path/path.dart' as path;
 class UploadApi {
   static Future<ApiResponse<String>> upload(File? file) async {
     try {
-      var uri = Uri.parse('https://carros-springboot.herokuapp.com/api/v1/upload');
-      var url = "https://carros-springboot.herokuapp.com/api/v1/upload";
+      final uri = Uri.parse('https://carros-springboot.herokuapp.com/api/v1/upload');
+      final url = "https://carros-springboot.herokuapp.com/api/v1/upload";
 
       List<int> imageBytes = file!.readAsBytesSync();
       String base64Image = convert.base64Encode(imageBytes);
 
       String fileName = path.basename(file.path);
 
-      var params = {
+      final params = {
         "fileName": fileName,
         "mimeType": "image/jpeg",
         "base64": base64Image
