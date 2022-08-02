@@ -37,7 +37,6 @@ class FavoritoService {
       DocumentSnapshot doc = await docRef.get();
 
       final exists = doc.exists;
-
       return exists;
    }
 }

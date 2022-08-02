@@ -46,10 +46,7 @@ class _CarrosPageState extends State<CarrosPage>
 
     return StreamBuilder(
       stream: _bloc.stream,
-      builder: (
-        context,
-        snapshot,
-      ) {
+      builder: (context, snapshot,) {
         if (snapshot.hasError) {
           return TextError('[ERRO]Não foi possível buscar os carros');
         }
