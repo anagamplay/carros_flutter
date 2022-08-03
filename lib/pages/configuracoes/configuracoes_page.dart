@@ -38,18 +38,21 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(
-                'Cor do Tema:',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              SizedBox(width: 20,),
               Flexible(
+                flex: 1,
+                child: Text(
+                  'Cor do Tema:',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              Flexible(
+                flex: 1,
                 child: Column(
                   children: <Widget>[
                     DropDown<Cor>(items, "Cores", cor, _onCorChanged, cor.color),
                     Text(
-                    cor != null ? "Cor > ${cor.nome}" : "",
-                    style: TextStyle(color: cor.color,),
+                      cor != null ? "Cor > ${cor.nome}" : "",
+                      style: TextStyle(color: cor.color,),
                     )
                   ],
                 ),
@@ -78,7 +81,13 @@ class Cor extends DropDownItem {
 
   @override
   text() {
-    return Icon(Icons.circle, color: color);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text(nome),
+        Icon(Icons.circle, color: color),
+      ],
+    );
   }
 
   @override

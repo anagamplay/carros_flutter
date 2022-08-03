@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-abstract class DropDownItem {
-  Icon text();
+abstract class DropDownItem<T> {
+  T text();
 }
 
 class DropDown<T extends DropDownItem> extends StatefulWidget {
@@ -28,7 +28,7 @@ class DropDownState<T extends DropDownItem> extends State<DropDown> {
 
     return DropdownButton<DropDownItem>(
       value: widget.value,
-      isExpanded: false,
+      isExpanded: true,
       items: items(),
       hint: Text(widget.text),
       onChanged: (newVal) {
