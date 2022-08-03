@@ -10,7 +10,7 @@ class ConfiguracoesPage extends StatefulWidget {
 
 class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
 
-  Cor cor = Cor("Preto", Colors.black);
+  Cor cor = Cor("Azul", Colors.blue);
 
   static final items = [
     Cor("Azul", Colors.blue),
@@ -39,14 +39,14 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Flexible(
-                flex: 1,
+                flex: 3,
                 child: Text(
                   'Cor do Tema:',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
               Flexible(
-                flex: 1,
+                flex: 2,
                 child: Column(
                   children: <Widget>[
                     DropDown<Cor>(items, "Cores", cor, _onCorChanged, cor.color),
