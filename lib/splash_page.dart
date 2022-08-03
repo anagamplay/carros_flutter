@@ -26,8 +26,8 @@ class _SplashPageState extends State<SplashPage> {
 
     Future futureB = Future.delayed(Duration(seconds: 3),);
 
+    // Pega o usuario logado
     Future futureC = currentUser();
-    //Usuario
 
     Future.wait([futureA, futureB, futureC]).then((List values){
       User? fUser = values[2];

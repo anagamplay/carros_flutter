@@ -3,6 +3,7 @@ import 'package:carros/firebase/firebase_service.dart';
 import 'package:carros/pages/api_response.dart';
 import 'package:carros/pages/carros/home_page.dart';
 import 'package:carros/pages/cadastro/cadastro_page.dart';
+import 'package:carros/pages/login/finger_print.dart';
 import 'package:carros/pages/login/login_bloc.dart';
 import 'package:carros/pages/login/usuario.dart';
 import 'package:carros/utils/alert.dart';
@@ -10,6 +11,7 @@ import 'package:carros/utils/nav.dart';
 import 'package:carros/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../widgets/app_text.dart';
 
@@ -19,6 +21,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final fUser = FirebaseAuth.instance.currentUser;
+  bool? biometrics;
 
   final _formKey = GlobalKey<FormState>();
   final _bloc = LoginBloc();
@@ -31,6 +35,7 @@ class _LoginPageState extends State<LoginPage> {
   initState() {
     super.initState();
 
+    _canCheckBiometrics();
     initFcm();
   }
 
@@ -109,6 +114,17 @@ class _LoginPageState extends State<LoginPage> {
                     )
                   ]
                 ),
+                SizedBox(height: 60),
+                Opacity(
+                  opacity: fUser != null && biometrics == true ? 1 : 0,
+                  child: Container(
+                    height: 46,
+                    child: GestureDetector(
+                      onTap: () => _onCLickFingerprint(context),
+                      child: Image.asset('assets/images/fingerprint.png'),
+                    ),
+                  ),
+                ),
               ]
             ),
           ),
@@ -169,6 +185,33 @@ class _LoginPageState extends State<LoginPage> {
       return 'Informe a senha';
     }
     return null;
+  }
+
+
+  _canCheckBiometrics() async {
+    print('Verificando biometria...');
+
+    final canCheckBiometrics = await FingerPrint.canCheckBiometrics();
+
+    if(canCheckBiometrics == true) {
+      print('Biometria ok!');
+      biometrics = true;
+    }
+    print('Biometria error');
+    biometrics = false;
+  }
+
+  _onCLickFingerprint(BuildContext context) async {
+    print('FingerPrint!');
+
+    final ok = await FingerPrint.verify();
+
+    if (ok == true) {
+      print('Acesso liberado!');
+      return push(context, HomePage());
+    }
+    print('Acesso negado!');
+    return alert(context, 'Biometria inválida');
   }
 
   @override
