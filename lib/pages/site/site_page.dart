@@ -9,8 +9,8 @@ class SitePage extends StatefulWidget {
 }
 
 class _SitePageState extends State<SitePage> {
+  var _stackIdx = 1;
   WebViewController? controller;
-
 
   @override
   Widget build(BuildContext context) {
@@ -21,21 +21,47 @@ class _SitePageState extends State<SitePage> {
           IconButton(onPressed: _onClickRefresh, icon: Icon(Icons.refresh),)
         ],
       ),
-      body: WebView(
-        initialUrl: 'https://flutter.dev/',
-        onWebViewCreated: (controller) {
-          this.controller = controller;
-        },
-        javascriptMode: JavascriptMode.unrestricted,
-        navigationDelegate: (request) {
-          print(request.url);
-          return NavigationDecision.navigate;
-        },
-      ),
+      body: _webView(),
+    );
+  }
+
+  _webView() {
+    return IndexedStack(
+      index: _stackIdx,
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            Expanded(
+              child: WebView(
+                initialUrl: 'https://flutter.dev/',
+                onPageFinished: _onPageFinished,
+                onWebViewCreated: (controller) {
+                  this.controller = controller;
+                },
+                javascriptMode: JavascriptMode.unrestricted,
+                navigationDelegate: (request) {
+                  print(request.url);
+                  return NavigationDecision.navigate;
+                },
+              ),
+            ),
+          ],
+        ),
+        Container(
+          color: Colors.white,
+          child: Center(child: CircularProgressIndicator(),),
+        )
+      ],
     );
   }
 
   void _onClickRefresh() {
     this.controller?.reload();
+  }
+
+  void _onPageFinished(String value) {
+    setState(() {
+      _stackIdx = 0;
+    });
   }
 }
