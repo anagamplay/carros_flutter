@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 abstract class DropDownItem {
-  String text();
+  Icon text();
 }
 
 class DropDown<T extends DropDownItem> extends StatefulWidget {
@@ -10,8 +10,10 @@ class DropDown<T extends DropDownItem> extends StatefulWidget {
   String text;
   T value;
   var callback;
+  Color color;
 
-  DropDown(this.itens, this.text, this.value, ValueChanged<T> this.callback);
+
+  DropDown(this.itens, this.text, this.value, ValueChanged<T> this.callback, this.color);
 
   @override
   DropDownState createState() {
@@ -23,6 +25,7 @@ class DropDownState<T extends DropDownItem> extends State<DropDown> {
 
   @override
   Widget build(BuildContext context) {
+
     return DropdownButton<DropDownItem>(
       value: widget.value,
       isExpanded: false,
@@ -38,7 +41,7 @@ class DropDownState<T extends DropDownItem> extends State<DropDown> {
     List<DropdownMenuItem<DropDownItem>> list = widget.itens.map<DropdownMenuItem<DropDownItem>>((val) {
       return DropdownMenuItem<DropDownItem>(
         value: val,
-        child: Text("${val.text()}",),
+        child: val.text(),
       );
     }).toList();
 

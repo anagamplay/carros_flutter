@@ -20,8 +20,6 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
     Cor("Preto", Colors.black)
   ];
 
-  String dropdownValue = 'One';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,45 +39,25 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'DropdownButton:',
+                'Cor do Tema:',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               SizedBox(width: 20,),
-              Column(
-                children: <Widget>[
-                  DropDown<Cor>(items, "Cores", cor, _onCorChanged),
-                  Text(
-                  cor != null ? "Cor > ${cor.nome}" : "",
-                  style: TextStyle(color: cor.color,),
-                  )
-                ],
+              Flexible(
+                child: Column(
+                  children: <Widget>[
+                    DropDown<Cor>(items, "Cores", cor, _onCorChanged, cor.color),
+                    Text(
+                    cor != null ? "Cor > ${cor.nome}" : "",
+                    style: TextStyle(color: cor.color,),
+                    )
+                  ],
+                ),
               ),
             ],
           ),
         ),
       ],
-    );
-  }
-
-  _dropDown() {
-    return Flexible(
-      child: DropdownButton<String>(
-        isExpanded: true,
-        value: dropdownValue,
-        elevation: 16,
-        onChanged: (String? newValue) {
-          setState(() {
-            dropdownValue = newValue!;
-          });
-        },
-        items: <String>['One', 'Two', 'Free', 'Four']
-            .map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-      ),
     );
   }
 
@@ -99,8 +77,8 @@ class Cor extends DropDownItem {
   Cor(this.nome, this.color);
 
   @override
-  String text() {
-    return nome;
+  text() {
+    return Icon(Icons.circle, color: color);
   }
 
   @override
