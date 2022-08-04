@@ -56,6 +56,12 @@ class DrawerList extends StatelessWidget {
               onTap: () => _onClickSite(context),
             ),
             ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Configurações'),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () => _onClickConfiguracoes(context),
+            ),
+            ListTile(
               leading: Icon(Icons.help),
               title: Text('Ajuda'),
               subtitle: Text('Mais informções...'),
@@ -64,12 +70,6 @@ class DrawerList extends StatelessWidget {
                 print('Item 2');
                 Navigator.pop(context);
               },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Configurações'),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () => _onClickConfiguracoes(context),
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app),
@@ -83,11 +83,9 @@ class DrawerList extends StatelessWidget {
     );
   }
 
-  _onClickLogout(BuildContext context) {
-    Usuario.clear();
-    FirebaseService().logout();
+  _onClickSite(BuildContext context) {
     Navigator.pop(context);
-    push(context, LoginPage(), replace: true);
+    push(context, SitePage());
   }
 
   _onClickConfiguracoes(BuildContext context) {
@@ -95,8 +93,10 @@ class DrawerList extends StatelessWidget {
     push(context, ConfiguracoesPage());
   }
 
-  _onClickSite(BuildContext context) {
+  _onClickLogout(BuildContext context) {
+    Usuario.clear();
+    FirebaseService().logout();
     Navigator.pop(context);
-    push(context, SitePage());
+    push(context, LoginPage(), replace: true);
   }
 }
