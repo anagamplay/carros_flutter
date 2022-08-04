@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                 AppText(
                   'Login',
                   'Digite o login',
-                  icon: Icons.account_circle,
+                  icon: Icon(Icons.account_circle),
                   controller: _tLogin,
                   validator: _validateLogin,
                   keyboardType: TextInputType.emailAddress,
@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                 AppText(
                   'Senha',
                   'Digite a senha',
-                  icon: Icons.vpn_key,
+                  icon: Icon(Icons.vpn_key),
                   password: true,
                   controller: _tSenha,
                   validator: _validateSenha,

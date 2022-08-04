@@ -34,14 +34,6 @@ class _CarroFormPageState extends State<CarroFormPage> {
 
   Carro? get carro => widget.carro;
 
-  // Add validate email function.
-  String? _validateNome(value) {
-    if (value.isEmpty) {
-      return 'Informe o nome do carro.';
-    }
-    return null;
-  }
-
   @override
   void initState() {
     super.initState();
@@ -203,6 +195,14 @@ class _CarroFormPageState extends State<CarroFormPage> {
         _file = File(image.path);
       });
     }
+  }
+
+  // Add validate email function.
+  String? _validateNome(value) {
+    if (value.isEmpty) {
+      return 'Informe o nome do carro.';
+    }
+    return null;
   }
 
   _onClickSalvar() async {

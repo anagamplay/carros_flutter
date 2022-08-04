@@ -54,7 +54,7 @@ class _CadastroPageState extends State<CadastroPage> {
                 AppText(
                   'Nome',
                   'Digite seu nome',
-                  icon: Icons.account_circle,
+                  icon: Icon(Icons.account_circle),
                   controller: _tNome,
                   validator: _validateNome,
                   textInputAction: TextInputAction.next,
@@ -65,7 +65,7 @@ class _CadastroPageState extends State<CadastroPage> {
                 AppText(
                   'Email',
                   'Informe seu email',
-                  icon: Icons.mail,
+                  icon: Icon(Icons.mail),
                   controller: _tEmail,
                   validator: _validateEmail,
                   keyboardType: TextInputType.emailAddress,
@@ -77,7 +77,7 @@ class _CadastroPageState extends State<CadastroPage> {
                 AppText(
                   'Senha',
                   'Digite uma senha',
-                  icon: Icons.vpn_key,
+                  icon: Icon(Icons.vpn_key),
                   controller: _tSenha,
                   password: true,
                   validator: _validateSenha,
@@ -89,7 +89,7 @@ class _CadastroPageState extends State<CadastroPage> {
                 AppText(
                   'Confirme a senha',
                   'Confirme a senha',
-                  icon: Icons.vpn_key,
+                  icon: Icon(Icons.vpn_key),
                   password: true,
                   controller: _tConfirmeSenha,
                   validator: _validateConfirmeSenha,

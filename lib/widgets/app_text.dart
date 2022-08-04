@@ -11,7 +11,7 @@ class AppText extends StatelessWidget {
   TextInputAction? textInputAction;
   FocusNode? focusNode;
   FocusNode? nextFocus;
-  IconData? icon;
+  Icon? icon;
   bool autofocus;
 
   AppText(
@@ -50,7 +50,7 @@ class AppText extends StatelessWidget {
         height: 1,
       ),
       decoration: InputDecoration(
-        prefixIcon: Icon(icon),
+        prefixIcon: icon,
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
