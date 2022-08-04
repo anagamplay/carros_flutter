@@ -39,10 +39,8 @@ class DrawerList extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.star),
+              leading: Icon(Icons.favorite),
               title: Text('Favoritos'),
-              subtitle: Text('Mais informções...'),
-              trailing: Icon(Icons.arrow_forward),
               onTap: () {
                 print('Item 1');
                 Navigator.pop(context);
@@ -51,20 +49,17 @@ class DrawerList extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.web),
               title: Text('Visite o site'),
-              subtitle: Text('Mais informções...'),
               trailing: Icon(Icons.arrow_forward),
               onTap: () => _onClickSite(context),
             ),
             ListTile(
               leading: Icon(Icons.settings),
               title: Text('Configurações'),
-              trailing: Icon(Icons.arrow_forward),
               onTap: () => _onClickConfiguracoes(context),
             ),
             ListTile(
               leading: Icon(Icons.help),
               title: Text('Ajuda'),
-              subtitle: Text('Mais informções...'),
               trailing: Icon(Icons.open_in_new),
               onTap: () {
                 print('Item 2');
@@ -73,8 +68,7 @@ class DrawerList extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app),
-              title: Text('Logout'),
-              trailing: Icon(Icons.arrow_forward),
+              title: Text('Sair'),
               onTap: () => _onClickLogout(context),
             ),
           ],
