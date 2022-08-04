@@ -3,8 +3,8 @@ import 'package:carros/pages/login/login_page.dart';
 import 'package:carros/pages/login/usuario.dart';
 import 'package:carros/utils/nav.dart';
 import 'package:flutter/material.dart';
-
 import 'pages/configuracoes/configuracoes_page.dart';
+import 'pages/site/site_page.dart';
 
 class DrawerList extends StatelessWidget {
   const DrawerList({Key? key}) : super(key: key);
@@ -49,10 +49,17 @@ class DrawerList extends StatelessWidget {
               },
             ),
             ListTile(
+              leading: Icon(Icons.web),
+              title: Text('Visite o site'),
+              subtitle: Text('Mais informções...'),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () => _onClickSite(context),
+            ),
+            ListTile(
               leading: Icon(Icons.help),
               title: Text('Ajuda'),
               subtitle: Text('Mais informções...'),
-              trailing: Icon(Icons.arrow_forward),
+              trailing: Icon(Icons.open_in_new),
               onTap: () {
                 print('Item 2');
                 Navigator.pop(context);
@@ -86,5 +93,10 @@ class DrawerList extends StatelessWidget {
   _onClickConfiguracoes(BuildContext context) {
     Navigator.pop(context);
     push(context, ConfiguracoesPage());
+  }
+
+  _onClickSite(BuildContext context) {
+    Navigator.pop(context);
+    push(context, SitePage());
   }
 }
