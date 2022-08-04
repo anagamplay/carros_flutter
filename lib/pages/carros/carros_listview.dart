@@ -27,9 +27,12 @@ class CarrosListView extends StatelessWidget {
               _onLongClickCarro(context, c);
             },
             child: Card (
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(26),
+              ),
               color: Colors.grey[100],
               child: Container(
-                padding: EdgeInsets.all(15),
+                padding: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 5),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -40,6 +43,7 @@ class CarrosListView extends StatelessWidget {
                         height: 120,
                       ),
                     ),
+                    SizedBox(height: 16),
                     Text(
                       c.nome,
                       maxLines: 1,
@@ -47,11 +51,12 @@ class CarrosListView extends StatelessWidget {
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      c.descricao ?? '',
+                      c.descricao ?? '...',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 16),
                     ),
+                    SizedBox(height: 5),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
@@ -66,7 +71,6 @@ class CarrosListView extends StatelessWidget {
                             _onClickShare(context, c);
                           },
                         ),
-                        const SizedBox(width: 8),
                       ],
                     ),
                   ],

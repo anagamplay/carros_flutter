@@ -50,7 +50,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
     final carro = this.carro;
     if (carro != null) {
       tNome.text = carro.nome;
-      tDesc.text = carro.descricao ?? '';
+      tDesc.text = carro.descricao ?? null;
       _radioIndex = getTipoInt(carro);
     }
   }
@@ -212,8 +212,15 @@ class _CarroFormPageState extends State<CarroFormPage> {
 
     // Cria o carro
     var c = carro ?? Carro();
+
     c.nome = tNome.text;
-    c.descricao = tDesc.text;
+
+    if(c.descricao != null) {
+      c.descricao = tDesc.text;
+    } else {
+      c.descricao = null;
+    }
+
     c.tipo = _getTipo();
 
     print("Carro: $c");
