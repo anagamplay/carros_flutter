@@ -16,7 +16,8 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
 
   Future<User?> currentUser() async {
-    await FirebaseAuth.instance.currentUser;
+    final fUser = await FirebaseAuth.instance.currentUser;
+    return fUser;
   }
 
   @override
