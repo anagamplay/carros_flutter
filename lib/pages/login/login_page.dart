@@ -189,18 +189,19 @@ class _LoginPageState extends State<LoginPage> {
 
 
   _canCheckBiometrics() async {
-    print('Verificando biometria...');
+    print('Verificando digital...');
 
     final canCheckBiometrics = await FingerPrint.canCheckBiometrics();
 
     if(canCheckBiometrics == true) {
-      print('Biometria ok!');
+      print('Digital ok!');
       biometrics = true;
     }
-    print('Biometria error');
+    print('Digital inválida');
     biometrics = false;
   }
 
+  // Nao testado
   _onCLickFingerprint(BuildContext context) async {
     print('FingerPrint!');
 
@@ -211,7 +212,7 @@ class _LoginPageState extends State<LoginPage> {
       return push(context, HomePage());
     }
     print('Acesso negado!');
-    return alert(context, 'Biometria inválida');
+    return alert(context, 'Digital inválida');
   }
 
   @override
