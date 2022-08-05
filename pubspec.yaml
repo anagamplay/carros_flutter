@@ -51,6 +51,7 @@ dev_dependencies:
   url_launcher: ^6.1.5
   local_auth: ^2.1.1
   webview_flutter: ^3.0.4
+  dots_indicator: ^2.1.0
 
   #Firebase
   flutter_signin_button: ^2.0.0
@@ -83,6 +84,7 @@ flutter:
     - assets/
     - assets/sql/
     - assets/images/
+    - assets/images/carros/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

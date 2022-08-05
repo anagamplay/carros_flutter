@@ -1,3 +1,4 @@
+import 'package:carros/dots_indicator.dart';
 import 'package:carros/firebase/firebase_service.dart';
 import 'package:carros/pages/login/login_page.dart';
 import 'package:carros/pages/login/usuario.dart';
@@ -53,6 +54,11 @@ class DrawerList extends StatelessWidget {
               onTap: () => _onClickSite(context),
             ),
             ListTile(
+              leading: Icon(Icons.more_horiz),
+              title: Text('Dots Indicator'),
+              onTap: () => _onClickDots(context),
+            ),
+            ListTile(
               leading: Icon(Icons.settings),
               title: Text('Configurações'),
               onTap: () => _onClickConfiguracoes(context),
@@ -80,6 +86,11 @@ class DrawerList extends StatelessWidget {
   _onClickSite(BuildContext context) {
     Navigator.pop(context);
     push(context, SitePage());
+  }
+
+  _onClickDots(BuildContext context) {
+    Navigator.pop(context);
+    push(context, DotsIndicatorPage());
   }
 
   _onClickConfiguracoes(BuildContext context) {
