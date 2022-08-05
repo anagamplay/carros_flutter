@@ -1,5 +1,5 @@
-import 'package:carros/dots_indicator.dart';
 import 'package:carros/drawer_list/drawer_list_pages/configuracoes_page.dart';
+import 'package:carros/drawer_list/drawer_list_pages/dots_indicator_page.dart';
 import 'package:carros/drawer_list/drawer_list_pages/site_page.dart';
 import 'package:carros/firebase/firebase_service.dart';
 import 'package:carros/pages/login/login_page.dart';
