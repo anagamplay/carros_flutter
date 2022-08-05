@@ -4,6 +4,7 @@ import 'package:carros/pages/carros/carro.dart';
 import 'package:carros/pages/carros/carro_form_page.dart';
 import 'package:carros/pages/carros/carros_api.dart';
 import 'package:carros/pages/carros/loripsum_api.dart';
+import 'package:carros/pages/carros/mapa_page.dart';
 import 'package:carros/pages/favoritos/favorito_service.dart';
 import 'package:carros/utils/alert.dart';
 import 'package:carros/utils/nav.dart';
@@ -50,6 +51,10 @@ class _CarroPageState extends State<CarroPage> {
           widget.carro.nome,
         ),
         actions: <Widget>[
+          IconButton(
+            onPressed: () => _onClickMapa(context),
+            icon: Icon(Icons.place),
+          ),
           IconButton(
             onPressed: _onClickVideo,
             icon: Icon(Icons.videocam),
@@ -184,11 +189,20 @@ class _CarroPageState extends State<CarroPage> {
     );
   }
 
+  _onClickMapa(BuildContext context) {
+    print('Mapa!');
+    if(carro.latitude != null && carro.longitude != null ){
+      push(context, MapaPage(carro));
+    } else {
+      alert(context, '[ERRO]\nEste carro não localização.');
+    }
+  }
+
   void _onClickVideo() {
     if(carro.urlVideo != null && carro.urlVideo.isNotEmpty){
       launchUrl(Uri.parse(carro.urlVideo));
     } else {
-      alert(context, '[ERRO] Este carro não possui vídeo.');
+      alert(context, '[ERRO]\nEste carro não possui vídeo.');
     }
   }
 

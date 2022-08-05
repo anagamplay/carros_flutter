@@ -1,8 +1,9 @@
 import 'dart:convert' as convert;
 
 import 'package:carros/utils/sql/entity.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class Carro extends Entity{
+class Carro extends Entity {
   var id;
   var nome;
   var tipo;
@@ -12,15 +13,22 @@ class Carro extends Entity{
   var latitude;
   var longitude;
 
+  latLng() {
+    return LatLng(
+      latitude == null || latitude.isEmpty ? 0.0 : double.parse(latitude),
+      longitude == null || longitude.isEmpty ? 0.0 : double.parse(longitude)
+    );
+  }
+
   Carro(
       {this.id,
-        this.nome,
-        this.tipo,
-        this.descricao,
-        this.urlFoto,
-        this.urlVideo,
-        this.latitude,
-        this.longitude});
+      this.nome,
+      this.tipo,
+      this.descricao,
+      this.urlFoto,
+      this.urlVideo,
+      this.latitude,
+      this.longitude});
 
   Carro.fromMap(Map<String, dynamic> map) {
     id = map['id'];
