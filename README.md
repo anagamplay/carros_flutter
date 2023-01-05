@@ -1,5 +1,5 @@
 # Carros App
-App que Flutter e o Firebase.
+App que ultiliza Flutter e o Firebase.
 ## Créditos
 Projeto desenvolvido durante o curso [Flutter Essencial](https://www.udemy.com/course/flutter-essencial/).
 
