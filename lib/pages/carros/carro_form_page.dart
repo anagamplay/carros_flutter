@@ -42,7 +42,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
     final carro = this.carro;
     if (carro != null) {
       tNome.text = carro.nome;
-      tDesc.text = carro.descricao ?? null;
+      tDesc.text = carro.descricao ?? "";
       _radioIndex = getTipoInt(carro);
     }
   }
@@ -215,10 +215,10 @@ class _CarroFormPageState extends State<CarroFormPage> {
 
     c.nome = tNome.text;
 
-    if(c.descricao != null) {
+    if(tDesc.text != null) {
       c.descricao = tDesc.text;
     } else {
-      c.descricao = null;
+      c.descricao = "";
     }
 
     c.tipo = _getTipo();

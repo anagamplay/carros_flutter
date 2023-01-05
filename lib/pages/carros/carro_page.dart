@@ -160,7 +160,7 @@ class _CarroPageState extends State<CarroPage> {
           height: 20,
         ),
         text(
-          widget.carro.descricao,
+          widget.carro.descricao ?? "",
           fontSize: 16,
         ),
         SizedBox(

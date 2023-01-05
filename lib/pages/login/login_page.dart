@@ -209,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (ok == true) {
       print('Acesso liberado!');
-      return push(context, HomePage());
+      return push(context, HomePage(), replace: true,);
     }
     print('Acesso negado!');
     return alert(context, 'Digital inválida');
