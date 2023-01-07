@@ -27,48 +27,66 @@ class _CarrosPageState extends State<CarrosPage>
   @override
   bool get wantKeepAlive => true;
 
+  ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
 
-    _bloc.fetch(widget.tipo);
+    _bloc.fetch(tipo);
 
+    // Escutando um stream
     final bus = EventBus.get(context);
-    subscription = bus.stream.listen((Event s){
+    subscription = bus.stream.listen((Event s) {
       print("Event $s");
       _bloc.fetch(tipo);
     }) as StreamSubscription<Event>?;
+
+    // Fim do scroll, carrega mais
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        print("FIM!");
+        _bloc.fetchMore(tipo);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final List<Carro> list = [];
 
     return StreamBuilder(
-      stream: _bloc.stream,
-      builder: (context, snapshot,) {
-        if (snapshot.hasError) {
-          return TextError('[ERRO]Não foi possível buscar os carros');
-        }
+        stream: _bloc.stream,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return TextError('[ERRO]Não foi possível buscar os carros');
+          }
 
-        if (!snapshot.hasData) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          List<Carro> carros = snapshot.data as List<Carro>;
+
+          list.addAll(carros);
+
+          bool showProgress = carros.length > 0;
+          // print("showProgress: $showProgress");
+
+          return RefreshIndicator(
+            onRefresh: _onRefresh,
+            child: CarrosListView(list, scrollController: _scrollController, showProgress: showProgress,),
           );
-        }
-
-        List<Carro> carros = snapshot.data as List<Carro>;
-
-        return RefreshIndicator(
-          onRefresh: _onRefresh,
-          child: CarrosListView(carros),
-        );
-        }
-    );
+        });
   }
 
   Future<void> _onRefresh() {
-    return _bloc.fetch(widget.tipo);
+    //print("Refresh");
+    return _bloc.fetch(tipo);
   }
 
   @override

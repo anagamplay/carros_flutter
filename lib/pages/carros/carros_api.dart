@@ -13,7 +13,18 @@ class TipoCarro {
 }
 
 class CarrosApi {
-  static Future<List<Carro>> getCarros(String tipo) async {
+  static Future<List<Carro>> getCarros(String tipo, int page) async {
+
+    if(page == 0) {
+      tipo = "classicos";
+    } else if(page == 1) {
+      tipo = "esportivos";
+    } else if(page == 2) {
+      tipo = "luxo";
+    } else {
+      return [];
+    }
+
     var url = Uri.parse('https://carros-springboot.herokuapp.com/api/v1/carros/tipo/$tipo');
 
     print("GET > $url");

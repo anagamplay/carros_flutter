@@ -4,10 +4,11 @@ import 'package:carros/pages/carros/carros_api.dart';
 import 'package:carros/utils/simple_bloc.dart';
 
 class CarrosBloc extends SimpleBloc<List<Carro>>{
+  int _page = 0;
 
   Future<List<Carro>> fetch(String tipo) async {
     try {
-      List<Carro> carros = await CarrosApi.getCarros(tipo);
+      List<Carro> carros = await CarrosApi.getCarros(tipo, _page);
 
       add(carros);
 
@@ -17,5 +18,10 @@ class CarrosBloc extends SimpleBloc<List<Carro>>{
     }
 
     return [];
+  }
+
+  Future? fetchMore(String tipo) {
+    _page++;
+    fetch(tipo);
   }
 }
