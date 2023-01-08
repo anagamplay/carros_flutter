@@ -13,7 +13,7 @@ class TipoCarro {
 }
 
 class CarrosApi {
-  static Future<List<Carro>> getCarros(String tipo, int page) async {
+  static Future<List<Carro>> getCarrosByTipo(String tipo, int page) async {
 
     if(page == 0) {
       tipo = "classicos";
@@ -26,6 +26,22 @@ class CarrosApi {
     }
 
     var url = Uri.parse('https://carros-springboot.herokuapp.com/api/v1/carros/tipo/$tipo');
+
+    print("GET > $url");
+
+    var response = await http.get(url);
+
+    String json = response.body;
+
+    List list = convert.json.decode(json);
+
+    List<Carro> carros = list.map<Carro>((map) => Carro.fromMap(map)).toList();
+
+    return carros;
+  }
+
+  static Future<List<Carro>> getCarros() async {
+    var url = Uri.parse('https://carros-springboot.herokuapp.com/api/v1/carros/');
 
     print("GET > $url");
 
@@ -116,5 +132,19 @@ class CarrosApi {
 
       return ApiResponse.error(msg: "Não foi possível deletar o carro");
     }
+  }
+
+  static search(String query) async {
+    List<Carro> carros = await getCarros();
+
+    List<Carro> list = [];
+
+    for(Carro c in carros) {
+      if(c.nome.toUpperCase().contains(query.toUpperCase())) {
+        list.add(c);
+      }
+    }
+
+    return list;
   }
 }

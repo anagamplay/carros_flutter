@@ -10,11 +10,13 @@ class CarrosListView extends StatelessWidget {
 
   final ScrollController? scrollController;
   final bool showProgress;
+  final bool search;
 
   CarrosListView(
     this.carros, {
     this.scrollController,
     this.showProgress = false,
+    this.search = false,
   });
 
   @override
@@ -105,7 +107,11 @@ class CarrosListView extends StatelessWidget {
   }
 
   void _onClickCarro(context, Carro c) {
-    push(context, CarroPage(c));
+    if(search) {
+      Navigator.pop(context, c);
+    } else {
+      push(context, CarroPage(c));
+    }
   }
 
   void _onLongClickCarro(BuildContext context, Carro c) {
